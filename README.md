@@ -4,7 +4,7 @@
 
 **Contributors**: Milena Belianovich, Tark Patel, Xiaoya Tang.
 
-**Emails**: [Milena](u1419504@umail.utah.edu), [Tark](tpat@sci.utah.edu), [Xiaoya](u1368791@umail.utah.edu).
+**Emails**: u1419504@umail.utah.edu, tpat@sci.utah.edu, u1368791@umail.utah.edu.
 
 **UIDs**: u1419504, u0893472, u1368791.
 
