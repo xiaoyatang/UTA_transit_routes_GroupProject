@@ -12,11 +12,11 @@
 This project will visualize the traffic routes in and around Salt Lake City in Utah.
 
 ## Milestone 1, a Functional project prototype：
-  Hand in our code and our process book in its current state.
-    `Should have completed your data acquisition. You must have your data structures in place.
-    `You must have a working visualization prototype. The direction and the content must be clear.
-    `The milestone will be submitted by creating a release in GitHub.
+  Hand in our code and our process book in its current state.\
+    `Should have completed your data acquisition. You must have your data structures in place.\
+    `You must have a working visualization prototype. The direction and the content must be clear.\
+    `The milestone will be submitted by creating a release in GitHub.\
     
-  Review with the staff
-  upload feedback exercise(feedback to their feedback to us)\\
+  Review with the staff\
+  upload feedback exercise(feedback to their feedback to us)\
   Process book created.
