@@ -18,5 +18,5 @@ This project will visualize the traffic routes in and around Salt Lake City in U
     `The milestone will be submitted by creating a release in GitHub.
     
   Review with the staff
-  upload feedback exercise(feedback to their feedback to us)
+  upload feedback exercise(feedback to their feedback to us)\\
   Process book created.
