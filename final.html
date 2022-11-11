@@ -6,13 +6,33 @@
     <title>Traffic Routes</title>
     <link rel="icon" href="data:,">
     <link rel="stylesheet" href="styles.css"/>
-    <script src="https://d3js.org/d3.v7.js"></script>
+    
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v4.js"></script>
+    <script src="https://d3js.org/topojson.v3.js"></script>
+
+    <script src="js/graphs.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/script.js"></script>
 </head>
 
 <body>
-    <header>
+    <div class="header">
         <h1>Traffic Routes</h1>
         <div>Authors: Milena Belianovich, Tark Patel, Xiaoya Tang</div>
-    </header>
+    </div>>
+    <div id="content">
+        <svg id="map">
+            <!-- <g id="graticules"></g>
+            <g id="countries"></g> -->
+        </svg>
+        <svg id="chart">
+            <!-- <g id="x-axis"></g>
+            <g id="y-axis"></g>
+            <g id="lines"></g>
+            <g id="overlay"><line></line></g> -->
+        </svg>
+        <!-- <button id="clear-button">Clear Selected Countries</button> -->
+    </div>
 </body>
 </html>
