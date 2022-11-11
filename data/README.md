@@ -3,8 +3,8 @@ Data sources:
 
 Data descriptions(star indicates unused in our vis):\
 ---map.json---(Aug. 2022)\
-    -*Route abbreviation *
-    -Route name
+    -*Route abbreviation * \
+    -Route name \
     -Frequency(minutes)
     -Route type
     -City(only SLC used here)
