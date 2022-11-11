@@ -1,6 +1,6 @@
 # Final-Project-VIS-2022
 ## Basic Information
-**Project Title**: “Changes of traffic routes in the state of Utah”.
+**Project Title**: “Traffic routes in the state of Utah”.
 
 **Contributors**: Milena Belianovich, Tark Patel, Xiaoya Tang.
 
