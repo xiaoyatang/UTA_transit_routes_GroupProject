@@ -16,8 +16,8 @@ This project will visualize the traffic routes in and around Salt Lake City in U
     ~Should have completed your data acquisition. You must have your data structures in place.\
       -Update map, stops, route-level boardings and stop boarding data in right structures. Historical routes data unfound but have send request to transit staff.\
 
-    ~You must have a working visualization prototype. The direction and the content must be clear.\
-      - The map graph with routes is built. When click on a routes, a info box will appear.\
+    ~You must have a working visualization prototype. The direction and the content must be clear.
+      - The map graph with routes is built. When click on a routes, a info box will appear.
   
     ~The milestone will be submitted by creating a release in GitHub.\
       -Process book.pdf
