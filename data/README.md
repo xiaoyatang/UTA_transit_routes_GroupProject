@@ -3,13 +3,13 @@ Data sources:
 
 Data descriptions(star indicates unused in our vis):\
 ---map.json---(Aug. 2022)\
-    -*Route abbreviation * \
-    -Route name \
-    -Frequency(minutes)\
-    -Route type\
-    -City(only SLC used here)\
-    -County \
-    -*Most recent AVG WKD boading
+        -*Route abbreviation * \
+        -Route name \
+        -Frequency(minutes)\
+        -Route type\
+        -City(only SLC used here)\
+        -County \
+        -*Most recent AVG WKD boading
 
 ---stops.json---(Nov. 2022)\
     -*Stop abbreviation \
