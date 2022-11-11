@@ -9,7 +9,7 @@
 **UIDs**: u1419504, u0893472, u1368791.
 
 ## Description: 
-This project will visualize the traffic routes in and around Salt Lake City in Utah.
+This project will visualize the traffic routes and other relative information in Salt Lake City in Utah.
 
 ## Milestone 1, a Functional project prototype：
   Hand in our code and our process book in its current state.
