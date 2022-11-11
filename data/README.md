@@ -9,7 +9,7 @@ Data descriptions(star indicates unused in our vis):\
     -Route type\
     -City(only SLC used here)\
     -County \
-    -*Most recent AVG WKD boading\
+    -*Most recent AVG WKD boading
 
 ---stops.json---(Nov. 2022)\
     -*Stop abbreviation \
@@ -19,7 +19,7 @@ Data descriptions(star indicates unused in our vis):\
     -County\
     -Latitude\
     -Longitude\
-    -*October 2022 AVG WKD boarding\
+    -*October 2022 AVG WKD boarding
 
 ---UTA_Stop_Boardings_-_Bus.csv(2020-2022)\
     -Service type(WKD,SAT,SUN)\
@@ -30,7 +30,7 @@ Data descriptions(star indicates unused in our vis):\
     -City(only SLC used here)\
     -County\
     -AVG boarding\
-    -AVG alighting\
+    -AVG alighting
 
 ---UTA_Route-Level_Boardings%2C_Monthly_Counts.csv(2017-2022)\
     -Mode(fixed route bus included-regular, express,ski,UTA rapid)\
@@ -40,12 +40,12 @@ Data descriptions(star indicates unused in our vis):\
     -Service type(WKD,SAT and SUN used)\
     -AVG boardings\
     -City(only SLC used)\
-    -County\
+    -County
 
 ---Utah_Health_Small_Statistical_Areas_Obesity_and_Activity.csv/json(Optional)\
-    -Population2017(only this attribute used here)\
+    -Population2017(only this attribute used here)
 
 
 Absent data:\
 ---historical routes data(only Aug 2022 found)\
----highlight locations\
+---highlight locations
