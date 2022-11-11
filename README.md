@@ -12,7 +12,7 @@
 This project will visualize the traffic routes in and around Salt Lake City in Utah.
 
 ## Milestone 1, a Functional project prototype：
-  Hand in our code and our process book in its current state.\
+  Hand in our code and our process book in its current state.
     
 
     ~You must have a working visualization prototype. The direction and the content must be clear.
