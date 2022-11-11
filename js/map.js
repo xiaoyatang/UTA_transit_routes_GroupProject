@@ -1,19 +1,53 @@
 class MapVis {
 
-    constructor(globalApplicationState) {
-        this.globalApplicationState = globalApplicationState;
-    
-        // Set up the map projection
-        const projection = d3.geoWinkel3()
-          .scale(150) // This set the size of the map
-          .translate([400, 250]); // This moves the map to the center of the SVG
-    
-        // -------------------- BEGIN CUT ---------------------
-        const path = d3.geoPath()
-          .projection(projection);
-
-        svg.append("path").attr("d",geoGenerator(countryData)).style("stroke","black").style("fill", "none");
-
+    constructor(routesJson, stopsJson) {
+      require(["esri/Map", "esri/layers/GeoJSONLayer", "esri/views/MapView"], (
+        Map,
+        GeoJSONLayer,
+        MapView
+      ) => {
+        const routeTemplate = {
+          title: "UTA Route",
+          content: "Line Name: {LineName}\n Route Type: {RouteType}\n Frequency: {Frequency}\n City: {City}\n County: {County}"
+        };
+        const pointsTemplate = {
+          title: "UTA Stop",
+          content: "Stop Name: {StopName}"
+        };
+      
+        const lineRenderer = {
+          type: "simple",
+          symbol: {
+            type: "simple-line",
+            color: "#FF6464",
+            width: 2}};
+        const pointsRenderer = {
+          type: "simple",
+          symbol: {
+            type: "simple-marker",
+            color: "#FFEF82",
+            size: 5}};
+      
+        const routesGeojsonLayer = new GeoJSONLayer({
+          url: routesJson,
+          popupTemplate: routeTemplate,
+          renderer: lineRenderer});
+      
+        const stopsGeojsonLayer = new GeoJSONLayer({
+          url: stopsJson,
+          popupTemplate: pointsTemplate,
+          renderer: pointsRenderer});
+      
+        const map = new Map({
+          basemap: "gray-vector",
+          layers: [routesGeojsonLayer, stopsGeojsonLayer]});
+      
+        const view = new MapView({
+          container: "map",
+          center: [-111.9, 40.76],
+          zoom: 11,
+          map: map});
+      });
     }
 
 }

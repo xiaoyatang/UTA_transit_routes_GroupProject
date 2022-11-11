@@ -1,38 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
+  <meta charset="utf-8" />
+  <title>UTA Transit Routes</title>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Traffic Routes</title>
-    <link rel="icon" href="data:,">
-    <link rel="stylesheet" href="styles.css"/>
-    
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://d3js.org/d3-geo-projection.v4.js"></script>
-    <script src="https://d3js.org/topojson.v3.js"></script>
+  <style>
+    #map {
+      height: 80%;
+      width: 60%;
+    }
+  </style>
 
-    <script src="js/graphs.js"></script>
-    <script src="js/map.js"></script>
-    <script src="js/script.js"></script>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css" />
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css"/>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://js.arcgis.com/4.25/"></script>
+  <script src="js/graphs.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/script.js"></script>
 </head>
 
 <body>
-    <div class="header">
-        <h1>Traffic Routes</h1>
-        <div>Authors: Milena Belianovich, Tark Patel, Xiaoya Tang</div>
-    </div>>
-    <div id="content">
-        <svg id="map">
-            <!-- <g id="graticules"></g>
-            <g id="countries"></g> -->
-        </svg>
-        <svg id="chart">
-            <!-- <g id="x-axis"></g>
-            <g id="y-axis"></g>
-            <g id="lines"></g>
-            <g id="overlay"><line></line></g> -->
-        </svg>
-        <!-- <button id="clear-button">Clear Selected Countries</button> -->
-    </div>
+  <h1>UTA Transit Routes</h1>
+  <div>Authors: Milena Belianovich, Tark Patel, Xiaoya Tang</div>
+  <div id='content'>
+    <div id="map"></div>
+    <svg id="chart"></svg>
+  </div>
 </body>
 </html>

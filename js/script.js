@@ -30,7 +30,7 @@ async function loadData () {
     globalApplicationState.stopsData = loadedData.stopsData;
   
     // Creates the view objects with the global state passed in 
-    const map = new MapVis(globalApplicationState);
+    const map = new MapVis("data/map.json", "data/stops.json");
     const chart1 = new Chart(globalApplicationState);
   
     globalApplicationState.map = map;
@@ -43,4 +43,3 @@ async function loadData () {
     //   globalApplicationState.lineChart.updateSelectedCountries();
     // });
   });
-  
