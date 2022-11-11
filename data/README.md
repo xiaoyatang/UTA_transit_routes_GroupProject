@@ -12,14 +12,14 @@ Data descriptions(star indicates unused in our vis):\
         -*Most recent AVG WKD boading
 
 ---stops.json---(Nov. 2022)\
-    -*Stop abbreviation \
-    -Stop name\
-    -City(only SLC used here)\
-    -*Zip code \
-    -County\
-    -Latitude\
-    -Longitude\
-    -*October 2022 AVG WKD boarding
+    	-*Stop abbreviation \
+    	-Stop name\
+    	-City(only SLC used here)\
+    	-*Zip code \
+    	-County\
+    	-Latitude\
+    	-Longitude\
+    	-*October 2022 AVG WKD boarding
 
 ---UTA_Stop_Boardings_-_Bus.csv(2020-2022)\
     -Service type(WKD,SAT,SUN)\
