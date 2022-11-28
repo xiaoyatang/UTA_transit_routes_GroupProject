@@ -16,7 +16,7 @@ async function loadData () {
     stopsData: null,
     map: null,
     chart1: null,
-    chart2: null
+    chart2: null,
   };
   
   
