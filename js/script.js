@@ -3,7 +3,8 @@
 async function loadData () {
     const routesData = await d3.json('data/map.json');
     const stopsData = await d3.json('data/stops.json');
-    return { routesData, stopsData };
+    const busBoardData = await d3.csv('data/UTA_Route_Level_Boardings_Monthly_Counts.csv');
+    return { routesData, stopsData, busBoardData };
   }
   
   
@@ -14,6 +15,7 @@ async function loadData () {
     //selectedLocations: [],
     routesData: null,
     stopsData: null,
+    busBoardData: null,
     map: null,
     chart1: null,
     chart2: null,
@@ -25,10 +27,12 @@ async function loadData () {
     //console.log('Here is the imported data:', loadedData.covidData);
     console.log('Routes:', loadedData.routesData);
     console.log('Stops:', loadedData.stopsData);
+    console.log('busBoardData:', loadedData.busBoardData);
   
     // Store the loaded data into the globalApplicationState
     globalApplicationState.routesData = loadedData.routesData;
     globalApplicationState.stopsData = loadedData.stopsData;
+    globalApplicationState.busBoardData=loadedData.busBoardData;
   
     // Creates the view objects with the global state passed in 
     const map = new MapVis("data/map.json", "data/stops.json");
