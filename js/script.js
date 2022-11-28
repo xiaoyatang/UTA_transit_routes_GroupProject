@@ -4,7 +4,7 @@ async function loadData () {
     const routesData = await d3.json('data/map.json');
     const stopsData = await d3.json('data/stops.json');
     const busBoardData = await d3.csv('data/UTA_Route_Level_Boardings_Monthly_Counts.csv');
-    const stopBoardData = await d3.csv('data/UTA_Stop_Boardings_-_Bus.csv.csv');
+    const stopBoardData = await d3.csv('data/UTA_Stop_Boardings_-_Bus.csv');
     return { routesData, stopsData, busBoardData, stopBoardData };
   }
   
