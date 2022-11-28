@@ -16,6 +16,7 @@ async function loadData () {
     stopsData: null,
     map: null,
     chart1: null,
+    chart2: null
   };
   
   
@@ -31,10 +32,14 @@ async function loadData () {
   
     // Creates the view objects with the global state passed in 
     const map = new MapVis("data/map.json", "data/stops.json");
-    const chart1 = new Chart(globalApplicationState);
+    const chart1 = new Line(globalApplicationState);
+    const chart2 = new Scatter(globalApplicationState);
+
   
     globalApplicationState.map = map;
     globalApplicationState.chart1 = chart1;
+    globalApplicationState.chart2 = chart2;
+
   
     // Allow clear button to clear selection
     // d3.select('#clear-button').on('click', () => {
