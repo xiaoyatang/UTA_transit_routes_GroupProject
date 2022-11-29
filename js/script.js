@@ -21,6 +21,7 @@ async function loadData () {
     map: null,
     chart1: null,
     chart2: null,
+    chart3: null,
   };
   
   
@@ -42,13 +43,17 @@ async function loadData () {
   
     // Creates the view objects with the global state passed in 
     const map = new MapVis("data/map.json", "data/stops.json");
-    const chart1 = new Line(globalApplicationState);
-    const chart2 = new Scatter(globalApplicationState);
+    const chart1 = new Box(globalApplicationState);
+    const chart2 = new Line(globalApplicationState);
+    const chart3 = new Scatter(globalApplicationState);
+
 
   
     globalApplicationState.map = map;
     globalApplicationState.chart1 = chart1;
     globalApplicationState.chart2 = chart2;
+    globalApplicationState.chart3 = chart3;
+
 
   
     // Allow clear button to clear selection
