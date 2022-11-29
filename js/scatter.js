@@ -26,10 +26,22 @@ class Scatter {
         // this.scatter = this.svg
         //     .selectAll("circle")
         //     .data(this.data);
+
+        this.wkdata = this.data.filter((d) => d.ServiceType.includes('WKD'));
+        this.wkndata = this.data.filter((d) => d.ServiceType.includes('SAT', 'SUN'));
+
+
+        //d3.select('#metric2').node().value === "weekday" : this.wkdata ? this.wkndata;
         
         let scatter = this.svg
             .selectAll("circle")
-            .data(this.data)
+            //.data(this.data)
+            .data(if (d3.select('#metric2').node().value === "weekday"){
+                return this.wkdata;
+            } 
+            else {
+                this.wkndata
+            })
             .join("circle")
             .attr("cx", (d) => this.xAxis(d.AvgBoard))
             .attr("cy", (d) => this.yScale(d.AvgBoard))
