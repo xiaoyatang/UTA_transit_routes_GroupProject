@@ -16,6 +16,11 @@
     width: 50%;
 }
 
+#vg-tooltip-element {
+    font-size: 20px;
+    color: #3e3c38;
+}
+
 /* .column {
     float: left;
     width: 50%;
