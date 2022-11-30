@@ -6,7 +6,7 @@ class Scatter {
         this.svg = d3.select("#chart3")
             .attr("width", this.width)
             .attr('height', this.height);
-        this.height = 500;
+        this.height = 700;
         this.width = 700;
         // this.yAxisPadding = 80;
         // this.xAxisPadding = 50;
@@ -85,13 +85,13 @@ class Scatter {
             .transition()
             .duration(3600)
             .attr("cx", (d) => this.xAxis(d.AvgBoard))
-            .attr("cy", (d) => this.yAxis(d.AvgBoard))
+            .attr("cy", (d) => this.yAxis(d.AvgAlight))
             .attr("r", 5) 
             // change r to size encoding if needed
             // .fill('fill', (d, i) => this.colors(d.Month))
             .fill('fill', 'red')
-            .attr('stroke', 'black')
-            .attr('stroke-width', 0.1)
+            // .attr('stroke', 'black')
+            // .attr('stroke-width', 0.1)
             .style("opacity", 1);
         
         // scatter.exit()
