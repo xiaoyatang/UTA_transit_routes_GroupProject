@@ -1,13 +1,12 @@
 class Scatter {
     constructor(globalApplicationState){
-        //this.data = d3.csv('UTA_Stop_Boardings_-_Bus.csv', function(){});
         this.globalApplicationState = globalApplicationState;
         this.data = globalApplicationState.stopBoardData;
+        this.height = 700;
+        this.width = 700;
         this.svg = d3.select("#chart3")
             .attr("width", this.width)
             .attr('height', this.height);
-        this.height = 700;
-        this.width = 700;
         // this.yAxisPadding = 80;
         // this.xAxisPadding = 50;
         this.margin = ({top: 20, right: 20, bottom: 20, left: 20});
@@ -22,6 +21,8 @@ class Scatter {
         //     d.AvgAlight = +d.AvgAlight; //unary operator converts string to number
         // }
 
+        console.log(d3.max(this.data, d => d.AvgBoard))
+
         this.xAxis = d3.scaleLinear()
             .domain([0, d3.max(this.data, d => d.AvgBoard)])
             .range([this.margin.left, this.width - this.margin.left - this.margin.right])
@@ -34,6 +35,7 @@ class Scatter {
         this.svg.select('#x-axis')
             //.append('g')
             .attr('transform', `translate(${this.margin.left}, ${this.width - this.margin.right})`)
+            // .attr('transform', `translate(0, ${this.height})`)
             .call(d3.axisBottom(this.xAxis)
             //.tickFormat(d3.timeFormat('%b %Y'))
             );
@@ -46,19 +48,16 @@ class Scatter {
 
         this.svg.select('#y-axis')
             //.append('g')
-            .attr('transform', `translate(${this.margin.top},0)`)
+            .attr('transform', `translate(${this.margin.top}, 0)`)
             .call(d3.axisLeft(this.yAxis));
       
         // Append y axis text
         this.svg.select('#y-axis')
             .append('text')
             .text('Average Alighting')
-            .attr('x', -280)
-            .attr('y', 20)
+            .attr('x', this.margin.top)
+            .attr('y', this.height/2)
             .attr('transform', 'rotate(-90)');
-
-
-
 
         // this.scatter = this.svg
         //     .selectAll("circle")
@@ -66,12 +65,15 @@ class Scatter {
 
         this.wkdata = this.data.filter((d) => d.ServiceType.includes('WKD'));
         this.wkndata = this.data.filter((d) => d.ServiceType.includes('SAT', 'SUN'));
+        // this.wkdata = this.data.filter((d) => d.ServiceType('WKD'));
+        // this.wkndata = this.data.filter((d) => d.ServiceType('SAT', 'SUN'));
 
 
         //d3.select('#metric2').node().value === "weekday" : this.wkdata ? this.wkndata;
         
         let scatter = this.svg
             .select("#circles")
+            .attr("transform", `translate(this.margin.top, 120)`)
             .selectAll("circle")
             .data((d3.select('#metric2').node().value === "weekday") ? this.wkdata : this.wkndata)
             //.data(this.data)
@@ -86,7 +88,7 @@ class Scatter {
             .duration(3600)
             .attr("cx", (d) => this.xAxis(d.AvgBoard))
             .attr("cy", (d) => this.yAxis(d.AvgAlight))
-            .attr("r", 5) 
+            .attr("r", 2) 
             // change r to size encoding if needed
             // .fill('fill', (d, i) => this.colors(d.Month))
             .fill('fill', 'red')
