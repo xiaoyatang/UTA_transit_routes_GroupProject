@@ -27,7 +27,7 @@ class Scatter {
             .range([this.margin.left, this.width - this.margin.left - this.margin.right])
             .nice();
         this.yAxis = d3.scaleLinear()
-            .domain([0, d3.max(this.data, d => d.AvgAlight)])
+            .domain([d3.max(this.data, d => d.AvgAlight), 0])
             .range([this.margin.left, this.height - this.margin.top - this.margin.bottom])
             .nice();
         
