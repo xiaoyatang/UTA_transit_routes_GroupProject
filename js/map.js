@@ -1,52 +1,185 @@
 class MapVis {
 
+    // Used this example from the ArcGIS documentation to implement brushing
+    // https://developers.arcgis.com/javascript/latest/sample-code/highlight-features-by-geometry/
     constructor(routesJson, stopsJson) {
-      require(["esri/Map", "esri/layers/GeoJSONLayer", "esri/views/MapView"], (
+      require(
+        [
+        "esri/Map",
+        "esri/layers/GeoJSONLayer",
+        "esri/views/MapView",
+        "esri/layers/CSVLayer",
+        "esri/layers/FeatureLayer",
+        "esri/layers/GraphicsLayer",
+        "esri/widgets/Sketch/SketchViewModel",
+        "esri/Graphic",
+        "esri/widgets/FeatureTable",
+        "esri/Basemap",
+        "esri/geometry/geometryEngineAsync"
+        ], (
         Map,
         GeoJSONLayer,
-        MapView
+        MapView,
+        CSVLayer,
+        FeatureLayer,
+        GraphicsLayer,
+        SketchViewModel,
+        Graphic,
+        FeatureTable,
+        Basemap,
+        geometryEngineAsync
       ) => {
-        const routeTemplate = {
+        let routeTemplate = {
           title: "UTA Route",
           content: "Line Name: {LineName}\n Route Type: {RouteType}\n Frequency: {Frequency}\n City: {City}\n County: {County}"
         };
-        const pointsTemplate = {
+        let pointsTemplate = {
           title: "UTA Stop",
           content: "Stop Name: {StopName}"
         };
       
-        const lineRenderer = {
+        let lineRenderer = {
           type: "simple",
           symbol: {
             type: "simple-line",
             color: "#FF6464",
             width: 2}};
-        const pointsRenderer = {
+        let pointsRenderer = {
           type: "simple",
           symbol: {
             type: "simple-marker",
             color: "#FFEF82",
             size: 5}};
-      
-        const routesGeojsonLayer = new GeoJSONLayer({
+
+        let routesLayer = new GeoJSONLayer({
           url: routesJson,
           popupTemplate: routeTemplate,
           renderer: lineRenderer});
       
-        const stopsGeojsonLayer = new GeoJSONLayer({
+        let stopsLayer = new GeoJSONLayer({
           url: stopsJson,
           popupTemplate: pointsTemplate,
           renderer: pointsRenderer});
-      
-        const map = new Map({
+
+        // make layer views for stops and routes
+        let routesLayerView;
+        routesLayer.when(() => {
+            view.whenLayerView(routesLayer).then(function (layerView) {
+              routesLayerView = layerView;});})
+
+        let stopsLayerView;
+        stopsLayer.when(() => {
+            view.whenLayerView(stopsLayer).then(function (layerView) {
+              stopsLayerView = layerView;});})
+
+        // make map and set view
+        let map = new Map({
           basemap: "gray-vector",
-          layers: [routesGeojsonLayer, stopsGeojsonLayer]});
+          layers: [routesLayer, stopsLayer]});
       
-        const view = new MapView({
+        let view = new MapView({
           container: "map",
           center: [-111.9, 40.76],
           zoom: 11,
           map: map});
+
+        // Generate feature tables for stops and routes
+        let routesFeatureTable = new FeatureTable({
+          view: view,
+          layer: routesLayer,
+          highlightOnRowSelectEnabled: false,
+          container: document.getElementById("tableDiv")});
+        let stopsFeatureTable = new FeatureTable({
+          view: view,
+          layer: stopsLayer,
+          highlightOnRowSelectEnabled: false,
+          container: document.getElementById("tableDiv")});
+
+
+        let routeFeatures = [];
+        routesFeatureTable.on("selection-change", (changes) => {
+          // Removed items are take nout of the feature list
+          changes.removed.forEach((item) => {
+            let data = routeFeatures.find((d) => { return d === item.objectId; });
+            if (data) routeFeatures.splice(routeFeatures.indexOf(data), 1);
+          });
+
+          // Add changed items to feature list
+          changes.added.forEach((item) => {
+            routeFeatures.push(item.objectId);});
+
+        // Add changes for removed items
+          routesLayerView.featureEffect = {
+            filter: { objectIds: routeFeatures},
+            excludedEffect: "blur(2px) grayscale(50%) opacity(50%)"};
+        });
+
+        let stopFeatures = [];
+        stopsFeatureTable.on("selection-change", (changes) => {
+          // Removed items are take nout of the feature list
+          changes.removed.forEach((item) => {
+            let data = routeFeatures.find((d) => { return d === item.objectId; });
+            if (data) stopFeatures.splice(stopFeatures.indexOf(data), 1);
+          });
+
+          // Add changed items to feature list
+          changes.added.forEach((item) => {
+            stopFeatures.push(item.objectId);});
+
+        // Add changes for removed items
+          stopsLayerView.featureEffect = {
+            filter: { objectIds: stopFeatures},
+            excludedEffect: "blur(2px) grayscale(50%) opacity(50%)"};
+        });
+
+        let gl = new GraphicsLayer();
+        map.add(gl);
+
+        // Add button for brushing
+        view.ui.add("select-by-rectangle", "top-left");
+        let selectButton = document.getElementById("select-by-rectangle");
+        selectButton.addEventListener("click", () => {
+          view.popup.close();
+          sketchViewModel.create("rectangle");});
+
+        // Add button for clearing the selection
+        view.ui.add("clear-selection", "top-left");
+        document.getElementById("clear-selection")
+          .addEventListener("click", () => {
+            routesFeatureTable.highlightIds.removeAll();
+            routesFeatureTable.filterGeometry = null;
+            stopsFeatureTable.highlightIds.removeAll();
+            stopsFeatureTable.filterGeometry = null;
+            gl.removeAll();
+          });
+
+        // Select geometry based on selection
+        let sketchViewModel = new SketchViewModel({ view: view, layer: gl });
+        sketchViewModel.on("create", async (event) => {
+          if (event.state === "complete") {
+            const geometries = gl.graphics.map(function (graphic) { return graphic.geometry; });
+            const queryGeometry = await geometryEngineAsync.union(geometries.toArray());
+            selectFeatures(queryGeometry);
+          }
+        });
+
+        // Sets selection of features based on the user-drawn geometry
+        function selectFeatures(geometry) {
+          if (routesLayerView) {
+            const query = {
+              geometry: geometry,
+              outFields: ["*"]};
+
+            routesLayerView.queryFeatures(query)
+              .then((results) => {
+                  routesFeatureTable.filterGeometry = geometry;
+                  routesFeatureTable.selectRows(results.features);})
+            stopsLayerView.queryFeatures(query)
+              .then((results) => {
+                  stopsFeatureTable.filterGeometry = geometry;
+                  stopsFeatureTable.selectRows(results.features);})
+          }
+        }
       });
     }
 
