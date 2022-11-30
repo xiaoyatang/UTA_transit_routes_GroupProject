@@ -2,7 +2,7 @@ class MapVis {
 
     // Used this example from the ArcGIS documentation to implement brushing
     // https://developers.arcgis.com/javascript/latest/sample-code/highlight-features-by-geometry/
-    constructor(routesJson, stopsJson) {
+  constructor(appState, routesJson, stopsJson) {
       require(
         [
         "esri/Map",
@@ -96,39 +96,37 @@ class MapVis {
           container: document.getElementById("tableDiv")});
 
 
-        let routeFeatures = [];
         routesFeatureTable.on("selection-change", (changes) => {
           // Removed items are take nout of the feature list
           changes.removed.forEach((item) => {
-            let data = routeFeatures.find((d) => { return d === item.objectId; });
-            if (data) routeFeatures.splice(routeFeatures.indexOf(data), 1);
+            let data = appState.selectedRoutes.find((d) => { return d === item.objectId; });
+            if (data) appState.selectedRoutes.splice(appState.selectedRoutes.indexOf(data), 1);
           });
 
           // Add changed items to feature list
           changes.added.forEach((item) => {
-            routeFeatures.push(item.objectId);});
+            appState.selectedRoutes.push(item.objectId);});
 
-        // Add changes for removed items
+        // Add visual changes for removed items
           routesLayerView.featureEffect = {
-            filter: { objectIds: routeFeatures},
+            filter: { objectIds: appState.selectedRoutes},
             excludedEffect: "blur(2px) grayscale(50%) opacity(50%)"};
         });
 
-        let stopFeatures = [];
         stopsFeatureTable.on("selection-change", (changes) => {
           // Removed items are take nout of the feature list
           changes.removed.forEach((item) => {
-            let data = routeFeatures.find((d) => { return d === item.objectId; });
-            if (data) stopFeatures.splice(stopFeatures.indexOf(data), 1);
+            let data = appState.selectedStops.find((d) => { return d === item.objectId; });
+            if (data) appState.selectedStops.splice(appState.selectedStops.indexOf(data), 1);
           });
 
-          // Add changed items to feature list
+          // Add visual changed items to feature list
           changes.added.forEach((item) => {
-            stopFeatures.push(item.objectId);});
+            appState.selectedStops.push(item.objectId);});
 
         // Add changes for removed items
           stopsLayerView.featureEffect = {
-            filter: { objectIds: stopFeatures},
+            filter: { objectIds: appState.selectedStops},
             excludedEffect: "blur(2px) grayscale(50%) opacity(50%)"};
         });
 
