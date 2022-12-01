@@ -3,8 +3,17 @@
 
   <style>
     #map {
-      height: 80%;
-      width: 60%;
+      height: 90%;
+      width: 90%;
+    }
+    .column {
+        float: left;
+    }
+    .left {
+        width: 65%;
+    }
+    .right {
+        width: 35%;
     }
   </style>
 
@@ -21,8 +30,41 @@
   <div class='row' id='content'>
     <div class="column left">
       <div id="map"></div>
+      <div id="select-by-rectangle"
+        class="esri-widget esri-widget--button esri-widget esri-interactive"
+        title="Select features by rectangle">
+        <span class="esri-icon-checkbox-unchecked"></span>
+      </div>
+      <div id="clear-selection"
+      class="esri-widget esri-widget--button esri-widget esri-interactive"
+      title="Clear selection">
+      <span class="esri-icon-erase"></span>
+    </div>
     </div>
     <div class="column right">
+      <div class="'toolbox"> 
+        <span>
+          <label>Year</label>
+          <select id="Year">
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option selected value="2022">2022</option>
+          </select>
+        </span>
+        <span>
+          <label>Bus Type</label>
+          <select id="BusType">
+            <option value="Fixed Route Bus - Express">Fixed Route Bus - Express</option>
+            <option value="Fixed Route Bus - Regular">Fixed Route Bus - Regular</option>
+            <option selected value="Fixed Route Bus - Ski">Fixed Route Bus - Ski</option>
+            <option value="Route Deviation">Route Deviation</option>
+            <option value="Fixed Route Bus - UTA Rapid">Fixed Route Bus - UTA Rapid</option>
+            <option value="Commuter Rail">Commuter Rail</option>
+            <option value="Light Rail">Light Rail</option>
+            <option value="Streetcar">Streetcar</option>
+          </select>
+        </span>
+      </div>
       <svg id="chart1"></svg>
       <svg id="chart2"></svg>
       <!-- <select id="metric1">

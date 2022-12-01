@@ -18,6 +18,8 @@ async function loadData () {
     stopsData: null,
     busBoardData: null,
     stopBoardData : null,
+    selectedRoutes : [],
+    selectedStops : [],
     map: null,
     chart1: null,
     chart2: null,
@@ -42,7 +44,7 @@ async function loadData () {
 
   
     // Creates the view objects with the global state passed in 
-    const map = new MapVis("data/map.json", "data/stops.json");
+    const map = new MapVis(globalApplicationState, "data/map.json", "data/stops.json");
     const chart1 = new Box(globalApplicationState);
     const chart2 = new Line(globalApplicationState);
     const chart3 = new Scatter(globalApplicationState);
