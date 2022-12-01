@@ -1,4 +1,5 @@
 class Scatter {
+
     constructor(globalApplicationState){
         this.globalApplicationState = globalApplicationState;
         this.data = globalApplicationState.stopBoardData;
@@ -117,7 +118,9 @@ class Scatter {
         //     .attr("cy", (d) => bScale(d.b))
         //     .attr("r", 5)
         //     .style("opacity", 1);
+    }
 
-
+    updateCircles(){
+        
     }
 }
