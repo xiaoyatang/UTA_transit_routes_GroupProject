@@ -95,10 +95,10 @@ class Scatter {
             // .duration(3600)
             .attr("cx", (d) => this.xAxis(d.AvgBoard))
             .attr("cy", (d) => this.yAxis(d.AvgAlight))
-            .attr("r", 1)
+            .attr("r", 2)
             // change r to size encoding if needed
-            // .fill('fill', (d, i) => this.colors(d.Month))
-            .attr('fill', 'black')
+            .attr('fill', (d, i) => this.colors(d.Month))
+            //.attr('fill', 'black')
             // .attr('stroke', 'black')
             // .attr('stroke-width', 0.1)
             .style("opacity", 1);
@@ -121,6 +121,6 @@ class Scatter {
     }
 
     updateCircles(){
-        
+
     }
 }
