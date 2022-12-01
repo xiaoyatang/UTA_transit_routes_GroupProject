@@ -15,7 +15,7 @@ class Line {
     // drawLegend(){
     //     let that=this;
     //     let labelData=['Jan','Feb','Mar',"Apr",'May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    //     let svg=d3.select('#chart1')
+    //     let svg=d3.select('#chart2')
     //         .append('svg')
     //         .attr('width',that.vizWidth)
     //         .attr('height',that.vizHeight);
@@ -39,7 +39,7 @@ class Line {
         let newData=this.changeData();
         let myColor = d3.scaleOrdinal().domain(this.uniqueCateg)
          .range(["lightseagreen", "navy", "orange", "pink", "darkgreen",  "slateblue"])
-        let svg=d3.select('#chart1')
+        let svg=d3.select('#chart2')
             .append('svg')
         svg.append('g')  
         .classed('shape', true)
