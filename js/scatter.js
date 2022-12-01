@@ -3,14 +3,14 @@ class Scatter {
         //this.data = d3.csv('UTA_Stop_Boardings_-_Bus.csv', function(){});
         this.globalApplicationState = globalApplicationState;
         this.data = globalApplicationState.stopBoardData;
+        this.height = 300;
+        this.width = 300;
         this.svg = d3.select("#chart3")
             .attr("width", this.width)
             .attr('height', this.height);
-        this.height = 700;
-        this.width = 700;
         // this.yAxisPadding = 80;
         // this.xAxisPadding = 50;
-        this.margin = ({top: 20, right: 20, bottom: 20, left: 20});
+        this.margin = ({top: 20, right: 20, bottom: 20, left: 40});
 
         this.colors = d3.scaleOrdinal()
             .domain(this.data.map( (d,i) => d.Month[i] ))
@@ -22,18 +22,26 @@ class Scatter {
         //     d.AvgAlight = +d.AvgAlight; //unary operator converts string to number
         // }
 
+
+        let boardMax = 0;
+        let alightMax = 0;
+        for (let i = 0; i < this.data.length; ++i) {
+            boardMax = Math.max(boardMax, this.data[i].AvgBoard)
+            alightMax = Math.max(alightMax, this.data[i].AvgAlight)
+        }
+
         this.xAxis = d3.scaleLinear()
-            .domain([0, d3.max(this.data, d => d.AvgBoard)])
-            .range([this.margin.left, this.width - this.margin.left - this.margin.right])
+            .domain([0, boardMax])
+            .range([this.margin.left, this.width - this.margin.right])
             .nice();
         this.yAxis = d3.scaleLinear()
-            .domain([d3.max(this.data, d => d.AvgAlight), 0])
-            .range([this.margin.left, this.height - this.margin.top - this.margin.bottom])
+            .domain([alightMax, 0])
+            .range([this.margin.top, this.height - this.margin.bottom])
             .nice();
         
         this.svg.select('#x-axis')
             //.append('g')
-            .attr('transform', `translate(${this.margin.left}, ${this.width - this.margin.right})`)
+            .attr('transform', `translate(0, ${this.width - this.margin.right})`)
             .call(d3.axisBottom(this.xAxis)
             //.tickFormat(d3.timeFormat('%b %Y'))
             );
@@ -46,15 +54,15 @@ class Scatter {
 
         this.svg.select('#y-axis')
             //.append('g')
-            .attr('transform', `translate(${this.margin.top},0)`)
+            .attr('transform', `translate(${this.margin.left},0)`)
             .call(d3.axisLeft(this.yAxis));
       
         // Append y axis text
         this.svg.select('#y-axis')
             .append('text')
             .text('Average Alighting')
-            .attr('x', -280)
-            .attr('y', 20)
+            // .attr('x', -280)
+            // .attr('y', -40)
             .attr('transform', 'rotate(-90)');
 
 
@@ -69,12 +77,13 @@ class Scatter {
 
 
         //d3.select('#metric2').node().value === "weekday" : this.wkdata ? this.wkndata;
-        
+
+
         let scatter = this.svg
             .select("#circles")
             .selectAll("circle")
-            .data((d3.select('#metric2').node().value === "weekday") ? this.wkdata : this.wkndata)
-            //.data(this.data)
+            // .data((d3.select('#metric2').node().value === "weekday") ? this.wkdata : this.wkndata)
+            .data(globalApplicationState.stopBoardData)
             // .data(d => {(if (d3.select('#metric2').node().value === "weekday"){
             //     return this.wkdata.map();
             // } 
@@ -82,18 +91,17 @@ class Scatter {
             //     this.wkndata
             // })})
             .join("circle")
-            .transition()
-            .duration(3600)
+            // .transition()
+            // .duration(3600)
             .attr("cx", (d) => this.xAxis(d.AvgBoard))
             .attr("cy", (d) => this.yAxis(d.AvgAlight))
-            .attr("r", 5) 
+            .attr("r", 1)
             // change r to size encoding if needed
             // .fill('fill', (d, i) => this.colors(d.Month))
-            .fill('fill', 'red')
+            .attr('fill', 'black')
             // .attr('stroke', 'black')
             // .attr('stroke-width', 0.1)
             .style("opacity", 1);
-        
         // scatter.exit()
         //     .style("opacity", 1)
         //     .transition()
