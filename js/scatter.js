@@ -73,7 +73,8 @@ class Scatter {
             .attr("transform", `translate(this.margin.top, 120)`)
             .selectAll("circle")
             // .data((d3.select('#metric2').node().value === "weekday") ? this.wkdata : this.wkndata)
-            .data(globalApplicationState.stopBoardData)
+            // .data(globalApplicationState.stopBoardData)
+            .data(this.data)
             // .data(d => {(if (d3.select('#metric2').node().value === "weekday"){
             //     return this.wkdata.map();
             // } 
@@ -108,6 +109,10 @@ class Scatter {
         //     .attr("cy", (d) => bScale(d.b))
         //     .attr("r", 5)
         //     .style("opacity", 1);
+
+
+        // this.updateCircles(d3.select("#metric2").node().value === "weekend");
+
     }
 
     updateCircles(){
