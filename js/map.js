@@ -110,7 +110,7 @@ class MapVis {
         // Add visual changes for removed items
           routesLayerView.featureEffect = {
             filter: { objectIds: appState.selectedRoutes},
-            excludedEffect: "blur(2px) grayscale(50%) opacity(50%)"};
+            excludedEffect: "blur(5px) grayscale(50%) opacity(30%)"};
         });
 
         stopsFeatureTable.on("selection-change", (changes) => {
@@ -127,7 +127,7 @@ class MapVis {
         // Add changes for removed items
           stopsLayerView.featureEffect = {
             filter: { objectIds: appState.selectedStops},
-            excludedEffect: "blur(2px) grayscale(50%) opacity(50%)"};
+            excludedEffect: "blur(5px) grayscale(50%) opacity(30%)"};
         });
 
         let gl = new GraphicsLayer();
