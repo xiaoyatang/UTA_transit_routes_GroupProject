@@ -14,14 +14,7 @@ class Scatter {
 
         this.colors = d3.scaleOrdinal()
             .domain(this.data.map( (d,i) => d.Month[i] ))
-            .range(['red', 'orange', 'yellow', 'green', 'darkgreen', 'blue', 'darkblue', 'violet', 'purple', 'pink', 'magenta', 'grey']);
-
-
-        // for (let d of this.data) {
-        //     d.AvgBoard = +d.AvgBoard; //unary operator converts string to number
-        //     d.AvgAlight = +d.AvgAlight; //unary operator converts string to number
-        // }
-
+            .range(['beige', 'orange', 'yellow', 'green', 'aqua', 'blue', 'darkblue', 'violet', 'purple', 'pink', 'magenta', 'grey']);
 
         let boardMax = 0;
         let alightMax = 0;
@@ -65,14 +58,11 @@ class Scatter {
             // .attr('y', -40)
             .attr('transform', 'rotate(-90)');
 
-        // this.scatter = this.svg
-        //     .selectAll("circle")
-        //     .data(this.data);
-
         this.wkdata = this.data.filter((d) => d.ServiceType.includes('WKD'));
         this.wkndata = this.data.filter((d) => d.ServiceType.includes('SAT', 'SUN'));
         // this.wkdata = this.data.filter((d) => d.ServiceType('WKD'));
         // this.wkndata = this.data.filter((d) => d.ServiceType('SAT', 'SUN'));
+        // console.log(this.wkdata)
 
 
         //d3.select('#metric2').node().value === "weekday" : this.wkdata ? this.wkndata;
@@ -99,9 +89,9 @@ class Scatter {
             // change r to size encoding if needed
             .attr('fill', (d, i) => this.colors(d.Month))
             //.attr('fill', 'black')
-            // .attr('stroke', 'black')
-            // .attr('stroke-width', 0.1)
-            .style("opacity", 1);
+            .attr('stroke', 'black')
+            .attr('stroke-width', 0.1)
+            .style("opacity", 0.8);
         // scatter.exit()
         //     .style("opacity", 1)
         //     .transition()
