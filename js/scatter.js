@@ -3,8 +3,8 @@ class Scatter {
     constructor(globalApplicationState){
         this.globalApplicationState = globalApplicationState;
         this.data = globalApplicationState.stopBoardData;
-        this.height = 300;
-        this.width = 300;
+        this.height = 500;
+        this.width = 500;
         this.svg = d3.select("#chart3")
             .attr("width", this.width)
             .attr('height', this.height);
@@ -109,13 +109,108 @@ class Scatter {
         //     .attr("cy", (d) => bScale(d.b))
         //     .attr("r", 5)
         //     .style("opacity", 1);
+        this.button = d3.select("#metric2").node();
+
+        if (this.button.value === "weekend"){
+            this.updateND();
+        }
+        else if (this.button.value === "weekday"){
+            this.updateD();
+        }
+        else if (this.button.value === "all"){
+            this.updateAll();
+        }
 
 
-        // this.updateCircles(d3.select("#metric2").node().value === "weekend");
 
+        this.updateND(d3.select("#metric2").node().value === "weekend");
+        this.updateD(d3.select("#metric2").node().value === "weekday");
+        this.updateAll(d3.select("#metric2").node().value === "all");
     }
 
-    updateCircles(){
-
+    updateND(){
+        this.svg
+            .select("#circles")
+            .attr("transform", `translate(this.margin.top, 120)`)
+            .selectAll("circle")
+            // .data((d3.select('#metric2').node().value === "weekday") ? this.wkdata : this.wkndata)
+            // .data(globalApplicationState.stopBoardData)
+            .data(this.wkndata)
+            // .data(d => {(if (d3.select('#metric2').node().value === "weekday"){
+            //     return this.wkdata.map();
+            // } 
+            // else {
+            //     this.wkndata
+            // })})
+            .join("circle")
+            .transition()
+            // .duration(3600)
+            .attr("cx", (d) => this.xAxis(d.AvgBoard))
+            .attr("cy", (d) => this.yAxis(d.AvgAlight))
+            .attr("r", 2)
+            // change r to size encoding if needed
+            .attr('fill', (d, i) => this.colors(d.Month))
+            //.attr('fill', 'black')
+            .attr('stroke', 'black')
+            .attr('stroke-width', 0.1)
+            .style("opacity", 0.8);
     }
+
+    updateD(){
+        this.svg
+            .select("#circles")
+            .attr("transform", `translate(this.margin.top, 120)`)
+            .selectAll("circle")
+            // .data((d3.select('#metric2').node().value === "weekday") ? this.wkdata : this.wkndata)
+            // .data(globalApplicationState.stopBoardData)
+            .data(this.wkdata)
+            // .data(d => {(if (d3.select('#metric2').node().value === "weekday"){
+            //     return this.wkdata.map();
+            // } 
+            // else {
+            //     this.wkndata
+            // })})
+            .join("circle")
+            .transition()
+            // .duration(3600)
+            .attr("cx", (d) => this.xAxis(d.AvgBoard))
+            .attr("cy", (d) => this.yAxis(d.AvgAlight))
+            .attr("r", 2)
+            // change r to size encoding if needed
+            .attr('fill', (d, i) => this.colors(d.Month))
+            //.attr('fill', 'black')
+            .attr('stroke', 'black')
+            .attr('stroke-width', 0.1)
+            .style("opacity", 0.8);
+    }
+
+    updateAll(){
+        this.svg
+            .select("#circles")
+            .attr("transform", `translate(this.margin.top, 120)`)
+            .selectAll("circle")
+            // .data((d3.select('#metric2').node().value === "weekday") ? this.wkdata : this.wkndata)
+            // .data(globalApplicationState.stopBoardData)
+            .data(this.data)
+            // .data(d => {(if (d3.select('#metric2').node().value === "weekday"){
+            //     return this.wkdata.map();
+            // } 
+            // else {
+            //     this.wkndata
+            // })})
+            .join("circle")
+            .transition()
+            // .duration(3600)
+            .attr("cx", (d) => this.xAxis(d.AvgBoard))
+            .attr("cy", (d) => this.yAxis(d.AvgAlight))
+            .attr("r", 2)
+            // change r to size encoding if needed
+            .attr('fill', (d, i) => this.colors(d.Month))
+            //.attr('fill', 'black')
+            .attr('stroke', 'black')
+            .attr('stroke-width', 0.1)
+            .style("opacity", 0.8);
+    }
+
+    
 }
