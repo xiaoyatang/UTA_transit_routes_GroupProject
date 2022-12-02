@@ -14,6 +14,7 @@ class Line {
         this.setup();
         this.myColor = d3.scaleOrdinal().domain(this.uniqueCateg)
         .range(["lightseagreen", "navy", "orange", "pink", "darkgreen",  "slateblue","steelblue",'red'])
+        
     }
     setup(){
         d3.select('#BusType').on('change',()=>{let res = this.changeData()});
@@ -27,8 +28,9 @@ class Line {
         let busType = d3.select('#BusType').property('value');
         let upData1=that.updateData.filter(d=>d.Mode===busType);
         let upData2=upData1.filter(d=>d.Year===year);
-        
-        console.log(upData2);
+        // let color=this.myColor(busType);
+        // console.log(color);
+        console.log(upData2,busType);
         that.updateBar(upData2);
     }
     updateBar(d){
@@ -102,6 +104,8 @@ class Line {
         sum.push(sum1,sum2,sum3,sum4,sum5,sum6,sum7,sum8,sum9,sum10,sum11,sum12);
         monthData.push(sum);
         console.log(monthData,sum);
+        console.log(that.myColor('Fixed Route Bus - Ski'));
+        console.log(that.myColor);
 
         let labelData=['Jan','Feb','Mar',"Apr",'May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
         let yScale=d3.scaleLinear()
@@ -137,10 +141,12 @@ class Line {
             .attr("stroke","black")
             .attr("font-size","15px");           
         let barWidth=xScale.bandwidth()*1.32+2;
-
-        svg.selectAll('#bar')
+        console.log(barWidth);
+        svg.select('#bar').selectAll('rect')
             .data(sum)
             .join('rect')
+            .transition()
+            .duration('2000')
             .attr('x',function(d,i){
                 return barWidth*i+65;
             })
@@ -148,8 +154,6 @@ class Line {
             .attr('width',1.32*xScale.bandwidth())
             .attr('height',d=>that.CHART_HEIGHT-that.MARGIN.bottom-that.MARGIN.top-yScale(d))
             .attr('class','bar')
-            .transition()
-            .duration('2000');
 
     }  
 }
