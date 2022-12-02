@@ -57,7 +57,15 @@ async function loadData () {
     globalApplicationState.chart3 = chart3;
 
 
-  
+
+      d3.select('#BusType').on('change', function() {
+          let year = d3.select('#Year').node().value;
+          let busType = d3.select('#BusType').node().value;
+          console.log(busType)
+          let dayType = d3.select('#metric2').node().value;
+          globalApplicationState.chart3.update(year);
+      });
+    d3.select('#Year').on('change', this.changeData);
     // Allow clear button to clear selection
     // d3.select('#clear-button').on('click', () => {
     //   globalApplicationState.selectedLocations = [];
