@@ -9,37 +9,17 @@ class Line {
      
         this.CHART_WIDTH= 400;
         this.CHART_HEIGHT = 400;
-        this.MARGIN = { left: 20, bottom: 20, top: 20, right: 20 };
+        this.MARGIN = { left: 60, bottom: 20, top: 20, right: 20 };
         // this.drawLegend();
         this.setup();
+        this.myColor = d3.scaleOrdinal().domain(this.uniqueCateg)
+        .range(["lightseagreen", "navy", "orange", "pink", "darkgreen",  "slateblue","steelblue",'red'])
     }
-    // drawLegend(){
-    //     let that=this;
-    //     let labelData=['Jan','Feb','Mar',"Apr",'May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    //     let svg=d3.select('#chart1')
-    //         .append('svg')
-    //         .attr('width',that.vizWidth)
-    //         .attr('height',that.vizHeight);
-    //     // let group=svg.selectAll('g')
-    //     //     .data(labelData)
-    //     //     .join('g')
-    //     let label=svg.selectAll('text')
-    //         .data(labelData)
-    //         .join('text')
-    //         .attr('x',function(i){
-    //             return 20+5*i;
-    //         })
-    //         .attr('y',10)
-    //         .text(d=>d)
-    // }
     setup(){
-        let myColor = d3.scaleOrdinal().domain(this.uniqueCateg)
-         .range(["lightseagreen", "navy", "orange", "pink", "darkgreen",  "slateblue"])
         d3.select('#BusType').on('change',()=>{let res = this.changeData()});
         // d3.select('#BusType').on('change',this.changeData); 
         d3.select('#Year').on('change',()=>{let res = this.changeData()});
-        let res = this.changeData();
-        console.log(res);
+        this.changeData();
     }
     changeData(){
         let that =this;
@@ -50,9 +30,9 @@ class Line {
         
         console.log(upData2);
         that.updateBar(upData2);
-        return upData2
     }
     updateBar(d){
+        d3.select('#chart2').selectAll('rect').remove();
         let that=this;
         console.log(that.MARGIN);
         let JanData=d.filter(d=>d.Month==="January");
@@ -126,7 +106,7 @@ class Line {
         let labelData=['Jan','Feb','Mar',"Apr",'May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
         let yScale=d3.scaleLinear()
             .domain([0,d3.max(sum,c=>c)])
-            .range([that.CHART_HEIGHT-that.MARGIN.bottom-that.MARGIN.top,0]);
+            .range([that.CHART_HEIGHT-that.MARGIN.bottom-that.MARGIN.top,15]);
         let xScale=d3.scaleBand()
             .domain(labelData)
             .range([that.MARGIN.left,that.CHART_WIDTH-that.MARGIN.right])
@@ -142,30 +122,34 @@ class Line {
         svg.select('#x-axis')
             .append('text')
             .text('Date')
-            .attr('x', that.CHART_WIDTH-that.MARGIN.right-that.MARGIN.left)
-            .attr('y', that.CHART_HEIGHT-that.MARGIN.bottom-that.MARGIN.top)
+            .attr('x', (that.CHART_WIDTH-that.MARGIN.right)/2)
+            .attr('y', that.CHART_HEIGHT-10)
             .attr("stroke","black")
             .attr("font-size","15px");
         svg.select('#y-axis')
             .call(d3.axisLeft(yScale))
-            .attr('transform','translate(50, 0)')
+            .attr('transform',`translate(${that.MARGIN.left}, 0)`)
             .append('text')
-            .text('Avg Onborading Sum')
-            .attr('x', 0)
-            .attr('y', that.MARGIN.left)
+            .text('Sum Avg Onborading')
+            .attr('x', -100)
+            .attr('y', -45)
             .attr('transform', 'rotate(-90)')
             .attr("stroke","black")
-            .attr("font-size","15px")            
-            ;
+            .attr("font-size","15px");           
+        let barWidth=xScale.bandwidth()*1.32+2;
+        
         svg.selectAll('#bar')
             .data(sum)
             .join('rect')
             .attr('x',function(d,i){
-                return 31*(i-0.25)+5;
+                return barWidth*i+65;
             })
             .attr('y',d=>yScale(d))
-            .attr('width',xScale.bandwidth())
+            .attr('width',1.32*xScale.bandwidth())
             .attr('height',d=>that.CHART_HEIGHT-that.MARGIN.bottom-that.MARGIN.top-yScale(d))
             .attr('class','bar')
+            .transition()
+            .duration('2000');
+
     }  
 }
