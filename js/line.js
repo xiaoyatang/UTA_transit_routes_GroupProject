@@ -137,7 +137,7 @@ class Line {
             .attr("stroke","black")
             .attr("font-size","15px");           
         let barWidth=xScale.bandwidth()*1.32+2;
-        
+
         svg.selectAll('#bar')
             .data(sum)
             .join('rect')
