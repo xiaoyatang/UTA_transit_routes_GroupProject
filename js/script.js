@@ -47,14 +47,14 @@ async function loadData () {
     const map = new MapVis(globalApplicationState, "data/map.json", "data/stops.json");
     const chart1 = new Box(globalApplicationState);
     const chart2 = new Line(globalApplicationState);
-    const chart3 = new Scatter(globalApplicationState);
+    // const chart3 = new Scatter(globalApplicationState);
 
 
   
     globalApplicationState.map = map;
     globalApplicationState.chart1 = chart1;
     globalApplicationState.chart2 = chart2;
-    globalApplicationState.chart3 = chart3;
+    // globalApplicationState.chart3 = chart3;
 
 
   
