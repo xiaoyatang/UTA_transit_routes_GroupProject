@@ -4,7 +4,7 @@
     font-family: 'Roboto', sans-serif;
 }
 
-.column {
+/* .column {
     float: left;
   }
 
@@ -14,7 +14,30 @@
 
 .right {
     width: 50%;
+} */
+
+/* #map {
+    height: 90%;
+    width: 90%;
 }
+.column {
+    float: left;
+}
+.left {
+    width: 65%;
+}
+.right {
+    width: 35%;
+}
+.bar {
+    /* fill: rgb(79, 175, 211);*/
+    /* fill: rgb(211, 121, 79); 
+    opacity:0.7;
+}
+.bar:hover {   
+    fill: #979696;
+} */ 
+
 
 
 /* .column {
