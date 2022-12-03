@@ -1,7 +1,8 @@
 class Line {
     constructor(globalApplicationState){
         this.firstRun = true;
-        this.data = globalApplicationState.busBoardData.filter(d => d.Year === "2020" || d.Year === "2021" || d.Year === "2022");
+        // this.data = globalApplicationState.busBoardData.filter(d => d.Year === "2020" || d.Year === "2021" || d.Year === "2022");
+        this.data = globalApplicationState.monthlyBusData.filter(d => d.Year === "2020" || d.Year === "2021" || d.Year === "2022");
         this.uniqueCateg = [...new Set(this.data.map(item => item.Mode))];
 
         this.CHART_WIDTH = 400;
@@ -20,16 +21,16 @@ class Line {
         //     .range(["lightseagreen", "navy", "orange", "pink", "darkgreen",  "slateblue","steelblue",'red']);
     }
 
-    filterMonths(data) {
-        let months = [data.filter(d => d.Month==="January"), data.filter(d => d.Month==="February"), data.filter(d => d.Month==="March"),
-                      data.filter(d => d.Month==="April"), data.filter(d => d.Month==="May"), data.filter(d => d.Month==="June"),
-                      data.filter(d => d.Month==="July"), data.filter(d => d.Month==="August"), data.filter(d => d.Month==="September"),
-                      data.filter(d => d.Month==="October"), data.filter(d => d.Month==="November"), data.filter(d => d.Month==="December")];
-        let sum = [];
-        for (let i = 0; i < 12; ++i)
-            sum.push(d3.sum(d3.map(months[i], d=> d.AvgBoardings)));
-        return sum;
-    }
+    // filterMonths(data) {
+    //     let months = [data.filter(d => d.Month==="January"), data.filter(d => d.Month==="February"), data.filter(d => d.Month==="March"),
+    //                   data.filter(d => d.Month==="April"), data.filter(d => d.Month==="May"), data.filter(d => d.Month==="June"),
+    //                   data.filter(d => d.Month==="July"), data.filter(d => d.Month==="August"), data.filter(d => d.Month==="September"),
+    //                   data.filter(d => d.Month==="October"), data.filter(d => d.Month==="November"), data.filter(d => d.Month==="December")];
+    //     let sum = [];
+    //     for (let i = 0; i < 12; ++i)
+    //         sum.push(d3.sum(d3.map(months[i], d=> d.AvgBoardings)));
+    //     return sum;
+    // }
 
     setText(){
         let year = d3.select('#Year').node().value;
@@ -37,14 +38,16 @@ class Line {
         let dayType = d3.select('#metric2').node().value;
         let filteredData = this.data.filter(d => d.Year === year && d.Mode === busType)
             .filter(d => dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')
-        let sum = this.filterMonths(filteredData);
+        // let sum = this.filterMonths(filteredData);
+        // let sum = this.data;
         let labelData = ['Jan', 'Feb', 'Mar', "Apr", 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         let svg = d3.select('#chart2')
             .attr('width',this.CHART_WIDTH)
             .attr('height',this.CHART_HEIGHT);
 
         this.yScale = d3.scaleLinear()
-            .domain([0, d3.max(sum, c => c)])
+            // .domain([0, d3.max(sum, c => c)])
+            .domain([0, d3.max(filteredData, c => c)])
             .range([this.CHART_HEIGHT - this.MARGIN.bottom - this.MARGIN.top, 15]);
         this.xScale = d3.scaleBand()
             .domain(labelData)
@@ -76,13 +79,15 @@ class Line {
     updateBar(year, busType, dayType){
         let filteredData = this.data.filter(d => d.Year === year && d.Mode === busType)
             .filter(d => dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')
-        let sum = this.filterMonths(filteredData);
+        // let sum = this.filterMonths(filteredData);
+        // let sum = this.data;
         let labelData=['Jan','Feb','Mar',"Apr",'May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
         let svg = d3.select('#chart2')
             .attr('width',this.CHART_WIDTH)
             .attr('height',this.CHART_HEIGHT);
         this.yScale=d3.scaleLinear()
-            .domain([0,d3.max(sum,c=>c)])
+            // .domain([0,d3.max(sum,c=>c)])
+            .domain([0,d3.max(filteredData,c=>c)])
             .range([this.CHART_HEIGHT-this.MARGIN.bottom-this.MARGIN.top,15]);
         this.xScale=d3.scaleBand()
             .domain(labelData)
@@ -120,10 +125,11 @@ class Line {
         let barWidth = this.xScale.bandwidth()*1.32+2;
         let filteredData = this.data.filter(d => d.Year === year && d.Mode === busType)
             .filter(d => dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')
-        let sum = this.filterMonths(filteredData);
+        // let sum = this.filterMonths(filteredData);
         let rects = d3.select('#chart2 #bars')
             .selectAll('rect')
-            .data(sum)
+            // .data(sum)
+            .data(filteredData)
             .join('rect')
             .attr('x',function(d,i) { return barWidth*i+65; })
             .attr('width',1.32*this.xScale.bandwidth())
