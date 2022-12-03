@@ -57,7 +57,9 @@ class Line {
             .attr('x', (this.CHART_WIDTH-this.MARGIN.right)/2)
             .attr('y', this.CHART_HEIGHT-3) //397
             .attr("stroke","black")
-            .attr("font-size","15px");
+            .attr('stroke-width', 0.75)
+            .attr("font-size","15px")
+            .attr('fill', 'white');
 
         svg.select('#y-axis')
             .call(d3.axisLeft(this.yScale))
