@@ -77,6 +77,7 @@ async function loadData () {
     }
 
     globalApplicationState.monthlyStopData = stopSum;
+    // globalApplicationState.monthlyStopData = stopMonths;
     console.log('Monthly Stop Data:', globalApplicationState.monthlyStopData);
   
     // Creates the view objects with the global state passed in 
