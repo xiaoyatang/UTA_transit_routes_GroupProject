@@ -16,12 +16,19 @@ class Scatter {
         this.colors = d3.scaleOrdinal()
             .domain(this.data.map( (d,i) => d.Month[i] ))
             .range(['beige', 'orange', 'yellow', 'green', 'aqua', 'blue', 'darkblue', 'violet', 'purple', 'pink', 'magenta', 'black']);
+    }
 
+    updateScales() {
+        let year = d3.select('#Year').node().value;
+        let busType = d3.select('#BusType').node().value;
+        let dayType = d3.select('#metric2').node().value;
+        let filteredData = this.data.filter(d => d.Year === year)
+            .filter(d => dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')
         let boardMax = 0;
         let alightMax = 0;
-        for (let i = 0; i < this.data.length; ++i) {
-            boardMax = Math.max(boardMax, this.data[i].AvgBoard)
-            alightMax = Math.max(alightMax, this.data[i].AvgAlight)
+        for (let i = 0; i < filteredData.length; ++i) {
+            boardMax = Math.max(boardMax, filteredData[i].AvgBoard)
+            alightMax = Math.max(alightMax, filteredData[i].AvgAlight)
         }
 
         this.xAxis = d3.scaleLinear()
@@ -80,11 +87,10 @@ class Scatter {
             .attr("stroke","black")
             .attr("font-size","15px");   
 
-        let year = d3.select('#Year').node().value;
-        this.update(year);
     }
 
     update(year, dayType) {
+        this.updateScales();
         let filteredData = this.data.filter(d => d.Year === year)
             .filter(d => dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')
        this.svg
