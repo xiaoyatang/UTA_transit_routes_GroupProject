@@ -81,24 +81,24 @@ class Line {
             .filter(d => dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')
         // let sum = this.filterMonths(filteredData);
         // let sum = this.data;
-        let labelData=['Jan','Feb','Mar',"Apr",'May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        let labelData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         let svg = d3.select('#chart2')
-            .attr('width',this.CHART_WIDTH)
-            .attr('height',this.CHART_HEIGHT);
-        this.yScale=d3.scaleLinear()
+            .attr('width', this.CHART_WIDTH)
+            .attr('height', this.CHART_HEIGHT);
+        this.yScale = d3.scaleLinear()
             // .domain([0,d3.max(sum,c=>c)])
-            .domain([0,d3.max(filteredData,c=>c)])
-            .range([this.CHART_HEIGHT-this.MARGIN.bottom-this.MARGIN.top,15]);
-        this.xScale=d3.scaleBand()
+            .domain([0, d3.max(filteredData, c => c)])
+            .range([this.CHART_HEIGHT - this.MARGIN.bottom - this.MARGIN.top,15]);
+        this.xScale = d3.scaleBand()
             .domain(labelData)
-            .range([this.MARGIN.left,this.CHART_WIDTH-this.MARGIN.right])
+            .range([this.MARGIN.left, this.CHART_WIDTH - this.MARGIN.right])
             .padding(0.3);
         // let svg=d3.select('#chart2')
         //         .attr('width',this.CHART_WIDTH)
         //         .attr('height',this.CHART_HEIGHT);
         svg.select('#x-axis')
             .append('g')
-            .attr('transform',`translate(0, ${this.CHART_HEIGHT-this.MARGIN.bottom-this.MARGIN.top})`)
+            .attr('transform',`translate(0, ${this.CHART_HEIGHT - this.MARGIN.bottom - this.MARGIN.top})`)
             .call(d3.axisBottom(this.xScale))
 
         // svg.select('#x-axis')
@@ -122,7 +122,7 @@ class Line {
 
     update(year, busType, dayType) {
         this.updateBar(year, busType, dayType)
-        let barWidth = this.xScale.bandwidth()*1.32+2;
+        let barWidth = this.xScale.bandwidth() * 1.32 + 2;
         let filteredData = this.data.filter(d => d.Year === year && d.Mode === busType)
             .filter(d => dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')
         // let sum = this.filterMonths(filteredData);
@@ -131,16 +131,16 @@ class Line {
             // .data(sum)
             .data(filteredData)
             .join('rect')
-            .attr('x',function(d,i) { return barWidth*i+65; })
-            .attr('width',1.32*this.xScale.bandwidth())
-            .attr('class','bar')
+            .attr('x', function(d,i) { return barWidth * i + 65; })
+            .attr('width', 1.32 * this.xScale.bandwidth())
+            .attr('class', 'bar')
         if (this.firstRun) {
-            rects.attr('y',d=>this.yScale(0))
+            rects.attr('y', d => this.yScale(0))
             this.firstRun = false;
         }
         rects.transition()
             .duration(4000)
-            .attr('y',d=>this.yScale(d))
-            .attr('height',d=>this.CHART_HEIGHT-this.MARGIN.bottom-this.MARGIN.top-this.yScale(d))
+            .attr('y', d => this.yScale(d))
+            .attr('height',d => this.CHART_HEIGHT - this.MARGIN.bottom - this.MARGIN.top - this.yScale(d))
     }
 }
