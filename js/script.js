@@ -73,7 +73,7 @@ async function loadData () {
                       loadedData.stopBoardData.filter(d => d.Month==="November"), loadedData.stopBoardData.filter(d => d.Month==="December")];
     let stopSum = [];
     for (let i = 0; i < 12; ++i){
-      stopSum.push(d3.sum(d3.map(stopMonths[i], d=> d.AvgBoardings)));
+      stopSum.push(d3.sum(d3.map(stopMonths[i], d => d.AvgBoardings)));
     }
 
     globalApplicationState.monthlyStopData = stopSum;
