@@ -84,10 +84,9 @@ class Scatter {
         this.update(year);
     }
 
-    update(year) {
+    update(year, dayType) {
         let filteredData = this.data.filter(d => d.Year === year)
-        console.log(filteredData)
-        // this = that;
+            .filter(d => dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')
        this.svg
             .select("#circles")
             .attr("transform", `translate(this.margin.top, 120)`)

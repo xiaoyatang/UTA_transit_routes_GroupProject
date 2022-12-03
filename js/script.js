@@ -65,14 +65,14 @@ async function loadData () {
           let busType = d3.select('#BusType').node().value;
           let dayType = d3.select('#metric2').node().value;
           globalApplicationState.chart2.update(year, busType, dayType);
+          globalApplicationState.chart3.update(year, dayType);
       });
       d3.select('#Year').on('change', function() {
-          console.log('efs')
           let year = d3.select('#Year').node().value;
           let busType = d3.select('#BusType').node().value;
           let dayType = d3.select('#metric2').node().value;
           globalApplicationState.chart2.update(year, busType, dayType);
-          globalApplicationState.chart3.update(year);
+          globalApplicationState.chart3.update(year, dayType);
       });
     // Allow clear button to clear selection
     // d3.select('#clear-button').on('click', () => {
