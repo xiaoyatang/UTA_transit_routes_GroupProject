@@ -59,7 +59,6 @@ async function loadData () {
     let busSum = [];
     for (let i = 0; i < 12; ++i){
       busSum.push(d3.sum(d3.map(busMonths[i], d=> d.AvgBoardings)));
-      return busSum;
     }
 
     globalApplicationState.monthlyBusData = busSum;
@@ -75,7 +74,6 @@ async function loadData () {
     let stopSum = [];
     for (let i = 0; i < 12; ++i){
       stopSum.push(d3.sum(d3.map(stopMonths[i], d=> d.AvgBoardings)));
-      return stopSum;
     }
 
     globalApplicationState.monthlyStopData = stopSum;
