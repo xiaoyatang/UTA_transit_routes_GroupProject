@@ -5,7 +5,8 @@ async function loadData () {
     const stopsData = await d3.json('data/stops.json');
     const busBoardData = await d3.csv('data/UTA_Route_Level_Boardings_Monthly_Counts.csv');
     const stopBoardData = await d3.csv('data/UTA_Stop_Boardings_-_Bus.csv');
-    return { routesData, stopsData, busBoardData, stopBoardData };
+    const monthlyData = await d3.csv('data/UTA_Route_Level_Boardings_Monthly_Counts.csv');
+    return { routesData, stopsData, busBoardData, stopBoardData, monthlyData };
   }
   
   
@@ -18,8 +19,11 @@ async function loadData () {
     stopsData: null,
     busBoardData: null,
     stopBoardData : null,
+    monthlyData: null, 
     selectedRoutes : [],
     selectedStops : [],
+    // stopSum: [],
+    // routeSum: [],
     map: null,
     chart1: null,
     chart2: null,
@@ -34,6 +38,7 @@ async function loadData () {
     console.log('Stops:', loadedData.stopsData);
     console.log('Route Boardings:', loadedData.busBoardData);
     console.log('Stop Boardings:', loadedData.stopBoardData);
+    console.log('Monthly Boardings:', loadedData.monthlyData);
 
   
     // Store the loaded data into the globalApplicationState
@@ -41,6 +46,32 @@ async function loadData () {
     globalApplicationState.stopsData = loadedData.stopsData;
     globalApplicationState.busBoardData = loadedData.busBoardData;
     globalApplicationState.stopBoardData = loadedData.stopBoardData;
+    globalApplicationState.monthlyData = loadedData.monthlyData;
+
+
+    // globalApplicationState.selectedMonths = loadedData.
+    // let stopMonths = [loadedData.stopBoardData.filter(d => d.Month==="January"), loadedData.stopBoardData.filter(d => d.Month==="February"), 
+    //                   loadedData.stopBoardData.filter(d => d.Month==="March"), loadedData.stopBoardData.filter(d => d.Month==="April"),
+    //                   loadedData.stopBoardData.filter(d => d.Month==="May"), loadedData.stopBoardData.filter(d => d.Month==="June"),
+    //                   loadedData.stopBoardData.filter(d => d.Month==="July"), loadedData.stopBoardData.filter(d => d.Month==="August"),
+    //                   loadedData.stopBoardData.filter(d => d.Month==="September"), loadedData.stopBoardData.filter(d => d.Month==="October"), 
+    //                   loadedData.stopBoardData.filter(d => d.Month==="November"), loadedData.stopBoardData.filter(d => d.Month==="December")];
+    // // let stopSum = [];
+    // for (let i = 0; i < 12; ++i)
+    //   globalApplicationState.stopSum.push(d3.sum(d3.map(stopMonths[i], d=> d.AvgBoardings)));
+    // return globalApplicationState.stopSum;
+
+
+    // let UTA_Route_Level_Boardings_Monthly_Counts = [loadedData.stopBoardData.filter(d => d.Month==="January"), loadedData.stopBoardData.filter(d => d.Month==="February"), 
+    //                   loadedData.stopBoardData.filter(d => d.Month==="March"), loadedData.stopBoardData.filter(d => d.Month==="April"),
+    //                   loadedData.stopBoardData.filter(d => d.Month==="May"), loadedData.stopBoardData.filter(d => d.Month==="June"),
+    //                   loadedData.stopBoardData.filter(d => d.Month==="July"), loadedData.stopBoardData.filter(d => d.Month==="August"),
+    //                   loadedData.stopBoardData.filter(d => d.Month==="September"), loadedData.stopBoardData.filter(d => d.Month==="October"), 
+    //                   loadedData.stopBoardData.filter(d => d.Month==="November"), loadedData.stopBoardData.filter(d => d.Month==="December")];
+    // // let stopSum = [];
+    // for (let i = 0; i < 12; ++i)
+    //   globalApplicationState.stopSum.push(d3.sum(d3.map(stopMonths[i], d=> d.AvgBoardings)));
+    // return globalApplicationState.stopSum;
 
   
     // Creates the view objects with the global state passed in 
