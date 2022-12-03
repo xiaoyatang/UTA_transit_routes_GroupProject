@@ -49,23 +49,31 @@ async function loadData () {
     const chart2 = new Line(globalApplicationState);
     const chart3 = new Scatter(globalApplicationState);
 
-
-  
     globalApplicationState.map = map;
     globalApplicationState.chart1 = chart1;
     globalApplicationState.chart2 = chart2;
     globalApplicationState.chart3 = chart3;
 
-
-
       d3.select('#BusType').on('change', function() {
           let year = d3.select('#Year').node().value;
           let busType = d3.select('#BusType').node().value;
-          console.log(busType)
           let dayType = d3.select('#metric2').node().value;
+          globalApplicationState.chart2.update(year, busType, dayType);
+      });
+      d3.select('#metric2').on('change', function() {
+          let year = d3.select('#Year').node().value;
+          let busType = d3.select('#BusType').node().value;
+          let dayType = d3.select('#metric2').node().value;
+          globalApplicationState.chart2.update(year, busType, dayType);
+      });
+      d3.select('#Year').on('change', function() {
+          console.log('efs')
+          let year = d3.select('#Year').node().value;
+          let busType = d3.select('#BusType').node().value;
+          let dayType = d3.select('#metric2').node().value;
+          globalApplicationState.chart2.update(year, busType, dayType);
           globalApplicationState.chart3.update(year);
       });
-    d3.select('#Year').on('change', this.changeData);
     // Allow clear button to clear selection
     // d3.select('#clear-button').on('click', () => {
     //   globalApplicationState.selectedLocations = [];
