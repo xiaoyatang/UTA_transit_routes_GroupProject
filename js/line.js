@@ -18,7 +18,6 @@ class Line {
     }
 
     filterMonths(data) {
-        console.log(data)
         let months = [data.filter(d => d.Month==="January"), data.filter(d => d.Month==="February"), data.filter(d => d.Month==="March"),
                       data.filter(d => d.Month==="April"), data.filter(d => d.Month==="May"), data.filter(d => d.Month==="June"),
                       data.filter(d => d.Month==="July"), data.filter(d => d.Month==="August"), data.filter(d => d.Month==="September"),
@@ -26,7 +25,6 @@ class Line {
         let sum = [];
         for (let i =0; i < 12; ++i)
             sum.push(d3.sum(d3.map(months[i], d=> d.AvgBoardings)));
-        console.log(sum)
         return sum;
     }
 
