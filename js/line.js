@@ -80,9 +80,11 @@ class Line {
             .data(sum)
             .join('rect')
             .attr('x',function(d,i) { return barWidth*i+65; })
-            .attr('y',d=>this.yScale(d))
             .attr('width',1.32*this.xScale.bandwidth())
-            .attr('height',d=>this.CHART_HEIGHT-this.MARGIN.bottom-this.MARGIN.top-this.yScale(d))
             .attr('class','bar')
+            .transition()
+            .duration(2000)
+            .attr('y',d=>this.yScale(d))
+            .attr('height',d=>this.CHART_HEIGHT-this.MARGIN.bottom-this.MARGIN.top-this.yScale(d))
     }
 }
