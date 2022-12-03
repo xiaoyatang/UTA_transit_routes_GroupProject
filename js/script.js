@@ -5,8 +5,8 @@ async function loadData () {
     const stopsData = await d3.json('data/stops.json');
     const busBoardData = await d3.csv('data/UTA_Route_Level_Boardings_Monthly_Counts.csv');
     const stopBoardData = await d3.csv('data/UTA_Stop_Boardings_-_Bus.csv');
-    const monthlyData = await d3.csv('data/UTA_Route_Level_Boardings_Monthly_Counts.csv');
-    return { routesData, stopsData, busBoardData, stopBoardData, monthlyData };
+    // const monthlyData = await d3.csv('data/UTA_Route_Level_Boardings_Monthly_Counts.csv');
+    return { routesData, stopsData, busBoardData, stopBoardData };
   }
   
   
@@ -19,7 +19,8 @@ async function loadData () {
     stopsData: null,
     busBoardData: null,
     stopBoardData : null,
-    monthlyData: null, 
+    monthlyStopData: null, 
+    monthlyBusData: null,
     selectedRoutes : [],
     selectedStops : [],
     // stopSum: [],
@@ -38,7 +39,7 @@ async function loadData () {
     console.log('Stops:', loadedData.stopsData);
     console.log('Route Boardings:', loadedData.busBoardData);
     console.log('Stop Boardings:', loadedData.stopBoardData);
-    console.log('Monthly Boardings:', loadedData.monthlyData);
+    // console.log('Monthly Boardings:', loadedData.monthlyData);
 
   
     // Store the loaded data into the globalApplicationState
@@ -46,33 +47,39 @@ async function loadData () {
     globalApplicationState.stopsData = loadedData.stopsData;
     globalApplicationState.busBoardData = loadedData.busBoardData;
     globalApplicationState.stopBoardData = loadedData.stopBoardData;
-    globalApplicationState.monthlyData = loadedData.monthlyData;
 
 
     // globalApplicationState.selectedMonths = loadedData.
-    // let stopMonths = [loadedData.stopBoardData.filter(d => d.Month==="January"), loadedData.stopBoardData.filter(d => d.Month==="February"), 
-    //                   loadedData.stopBoardData.filter(d => d.Month==="March"), loadedData.stopBoardData.filter(d => d.Month==="April"),
-    //                   loadedData.stopBoardData.filter(d => d.Month==="May"), loadedData.stopBoardData.filter(d => d.Month==="June"),
-    //                   loadedData.stopBoardData.filter(d => d.Month==="July"), loadedData.stopBoardData.filter(d => d.Month==="August"),
-    //                   loadedData.stopBoardData.filter(d => d.Month==="September"), loadedData.stopBoardData.filter(d => d.Month==="October"), 
-    //                   loadedData.stopBoardData.filter(d => d.Month==="November"), loadedData.stopBoardData.filter(d => d.Month==="December")];
-    // // let stopSum = [];
-    // for (let i = 0; i < 12; ++i)
-    //   globalApplicationState.stopSum.push(d3.sum(d3.map(stopMonths[i], d=> d.AvgBoardings)));
-    // return globalApplicationState.stopSum;
+    let busMonths = [loadedData.busBoardData.filter(d => d.Month==="January"), loadedData.busBoardData.filter(d => d.Month==="February"), 
+                      loadedData.busBoardData.filter(d => d.Month==="March"), loadedData.busBoardData.filter(d => d.Month==="April"),
+                      loadedData.busBoardData.filter(d => d.Month==="May"), loadedData.busBoardData.filter(d => d.Month==="June"),
+                      loadedData.busBoardData.filter(d => d.Month==="July"), loadedData.busBoardData.filter(d => d.Month==="August"),
+                      loadedData.busBoardData.filter(d => d.Month==="September"), loadedData.busBoardData.filter(d => d.Month==="October"), 
+                      loadedData.busBoardData.filter(d => d.Month==="November"), loadedData.busBoardData.filter(d => d.Month==="December")];
+    let busSum = [];
+    for (let i = 0; i < 12; ++i){
+      busSum.push(d3.sum(d3.map(busMonths[i], d=> d.AvgBoardings)));
+      return busSum;
+    }
+
+    globalApplicationState.monthlyBusData = busSum;
+    console.log('Monthly Bus Data:', globalApplicationState.monthlyBusData);
 
 
-    // let UTA_Route_Level_Boardings_Monthly_Counts = [loadedData.stopBoardData.filter(d => d.Month==="January"), loadedData.stopBoardData.filter(d => d.Month==="February"), 
-    //                   loadedData.stopBoardData.filter(d => d.Month==="March"), loadedData.stopBoardData.filter(d => d.Month==="April"),
-    //                   loadedData.stopBoardData.filter(d => d.Month==="May"), loadedData.stopBoardData.filter(d => d.Month==="June"),
-    //                   loadedData.stopBoardData.filter(d => d.Month==="July"), loadedData.stopBoardData.filter(d => d.Month==="August"),
-    //                   loadedData.stopBoardData.filter(d => d.Month==="September"), loadedData.stopBoardData.filter(d => d.Month==="October"), 
-    //                   loadedData.stopBoardData.filter(d => d.Month==="November"), loadedData.stopBoardData.filter(d => d.Month==="December")];
-    // // let stopSum = [];
-    // for (let i = 0; i < 12; ++i)
-    //   globalApplicationState.stopSum.push(d3.sum(d3.map(stopMonths[i], d=> d.AvgBoardings)));
-    // return globalApplicationState.stopSum;
+    let stopMonths = [loadedData.stopBoardData.filter(d => d.Month==="January"), loadedData.stopBoardData.filter(d => d.Month==="February"), 
+                      loadedData.stopBoardData.filter(d => d.Month==="March"), loadedData.stopBoardData.filter(d => d.Month==="April"),
+                      loadedData.stopBoardData.filter(d => d.Month==="May"), loadedData.stopBoardData.filter(d => d.Month==="June"),
+                      loadedData.stopBoardData.filter(d => d.Month==="July"), loadedData.stopBoardData.filter(d => d.Month==="August"),
+                      loadedData.stopBoardData.filter(d => d.Month==="September"), loadedData.stopBoardData.filter(d => d.Month==="October"), 
+                      loadedData.stopBoardData.filter(d => d.Month==="November"), loadedData.stopBoardData.filter(d => d.Month==="December")];
+    let stopSum = [];
+    for (let i = 0; i < 12; ++i){
+      stopSum.push(d3.sum(d3.map(stopMonths[i], d=> d.AvgBoardings)));
+      return stopSum;
+    }
 
+    globalApplicationState.monthlyStopData = stopSum;
+    console.log('Monthly Stop Data:', globalApplicationState.monthlyStopData);
   
     // Creates the view objects with the global state passed in 
     const map = new MapVis(globalApplicationState, "data/map.json", "data/stops.json");
