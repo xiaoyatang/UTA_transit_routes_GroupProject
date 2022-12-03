@@ -16,11 +16,15 @@ class Scatter {
         this.colors = d3.scaleOrdinal()
             .domain(this.data.map( (d,i) => d.Month[i] ))
             .range(['beige', 'orange', 'yellow', 'green', 'aqua', 'blue', 'darkblue', 'violet', 'purple', 'pink', 'magenta', 'black']);
+
+        let year=d3.select('#Year').property('value');
+        let dayType = d3.select('#metric2').property('value');
+        this.setText();
+        this.update(year, dayType);
     }
 
     updateScales() {
         let year = d3.select('#Year').node().value;
-        let busType = d3.select('#BusType').node().value;
         let dayType = d3.select('#metric2').node().value;
         let filteredData = this.data.filter(d => d.Year === year)
             .filter(d => dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')
@@ -44,28 +48,34 @@ class Scatter {
             //.append('g')
             .attr('transform', `translate(0, ${this.width - this.margin.bottom})`)
             .call(d3.axisBottom(this.xAxis)
-            //.tickFormat(d3.timeFormat('%b %Y'))
             );
-
-        // this.svg.select('#x-axis')
-        //     .append('text')
-        //     .text('Average Boarding')
-        //     .attr('x', 350)
-        //     .attr('y', this.height);
 
         this.svg.select('#y-axis')
             // .append('g')
             .attr('transform', `translate(${this.margin.left},0)`)
             .call(d3.axisLeft(this.yAxis));
-      
-        // Append y axis text
-        // this.svg.select('#y-axis')
-        //     .append('text')
-        //     .text('Average Alighting')
-        //     .attr('x', -280)
-        //     .attr('y', -40)
-        //     .attr('transform', 'rotate(-90)');
+    }
 
+    setText() {
+        let year = d3.select('#Year').node().value;
+        let dayType = d3.select('#metric2').node().value;
+        let filteredData = this.data.filter(d => d.Year === year)
+            .filter(d => dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')
+        let boardMax = 0;
+        let alightMax = 0;
+        for (let i = 0; i < filteredData.length; ++i) {
+            boardMax = Math.max(boardMax, filteredData[i].AvgBoard)
+            alightMax = Math.max(alightMax, filteredData[i].AvgAlight)
+        }
+
+        this.xAxis = d3.scaleLinear()
+            .domain([0, boardMax])
+            .range([this.margin.left, this.width - this.margin.right])
+            .nice();
+        this.yAxis = d3.scaleLinear()
+            .domain([alightMax, 0])
+            .range([this.margin.top, this.height - this.margin.bottom])
+            .nice();
 
         this.svg.select('#x-axis')
             .call(d3.axisBottom(this.xAxis))
@@ -86,7 +96,6 @@ class Scatter {
             .attr('transform', 'rotate(-90)')
             .attr("stroke","black")
             .attr("font-size","15px");   
-
     }
 
     update(year, dayType) {
@@ -102,7 +111,7 @@ class Scatter {
             .attr("class", "scatters")
             .attr("cx", (d) => this.xAxis(d.AvgBoard))
             .attr("cy", (d) => this.yAxis(d.AvgAlight))
-            .attr("r", 2.5)
+            .attr("r", 3)
             // change r to size encoding if needed
             .attr('fill', (d, i) => this.colors(d.Month))
             .attr('stroke', 'black')
