@@ -1,5 +1,6 @@
 class Line {
     constructor(globalApplicationState){
+        this.firstRun = true;
         this.data=globalApplicationState.busBoardData.filter(d=>d.Year==="2020"|| d.Year==="2021"|| d.Year==="2022");
         this.uniqueCateg = [...new Set(this.data.map(item => item.Mode))];
 
@@ -73,15 +74,19 @@ class Line {
         let filteredData = this.data.filter(d => d.Year === year && d.Mode === busType)
             .filter(d => dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')
         let sum = this.filterMonths(filteredData);
-        d3.select('#chart2 #bars')
+        let rects = d3.select('#chart2 #bars')
             .selectAll('rect')
             .data(sum)
             .join('rect')
             .attr('x',function(d,i) { return barWidth*i+65; })
             .attr('width',1.32*this.xScale.bandwidth())
             .attr('class','bar')
-            .transition()
-            .duration(2000)
+        if (this.firstRun) {
+            rects.attr('y',d=>this.yScale(0))
+            this.firstRun = false;
+        }
+        rects.transition()
+            .duration(4000)
             .attr('y',d=>this.yScale(d))
             .attr('height',d=>this.CHART_HEIGHT-this.MARGIN.bottom-this.MARGIN.top-this.yScale(d))
     }
