@@ -38,83 +38,116 @@
 </head>
 
 <body>
-  <h1>UTA Transit Routes</h1>
-  <div>Authors: Milena Belianovich, Tark Patel, Xiaoya Tang</div>
-  <div class='row' id='content'>
-    <div class="column left">
-      <div id="map"></div>
-      <div id="select-by-rectangle"
+  <!-- <nav>
+    <ul>
+      <li>
+        <a href="#"> Home </a>
+      </li>
+      <li>
+        <a href="#"> About </a>
+      </li>
+      <li>
+        <a href="#"> Contact </a>
+      </li>
+      <li> 
+        <a href="#"> Terms of use </a>
+      </li>
+      <li>
+        <a href="#"> Join Us </a> 
+      </li>
+    </ul>
+    </nav> -->
+  <!-- <header> -->
+    <h1>UTA Transit Routes</h1>
+    <div>Authors: Milena Belianovich, Tark Patel, Xiaoya Tang</div>
+  <!-- </header> -->
+
+  <!-- <main> -->
+    <div class='row' id='content'>
+      <div class="column left">
+        <div id="map"></div>
+        <div id="select-by-rectangle"
+          class="esri-widget esri-widget--button esri-widget esri-interactive"
+          title="Select features by rectangle">
+          <span class="esri-icon-checkbox-unchecked"></span>
+        </div>
+        <div id="clear-selection"
         class="esri-widget esri-widget--button esri-widget esri-interactive"
-        title="Select features by rectangle">
-        <span class="esri-icon-checkbox-unchecked"></span>
+        title="Clear selection">
+        <span class="esri-icon-erase"></span>
       </div>
-      <div id="clear-selection"
-      class="esri-widget esri-widget--button esri-widget esri-interactive"
-      title="Clear selection">
-      <span class="esri-icon-erase"></span>
-    </div>
-    </div>
-    <div class="column right">
-      <svg id="chart1"></svg>
-      <div class="'toolbox"> 
-        <span>
-          <label>Year</label>
-          <select id="Year">
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option selected value="2022">2022</option>
-          </select>
-        </span>
-        <span>
-          <label>Bus Type</label>
-          <select id="BusType">
-            <option value="Fixed Route Bus - Express">Fixed Route Bus - Express</option>
-            <option value="Fixed Route Bus - Regular">Fixed Route Bus - Regular</option>
-            <option selected value="Fixed Route Bus - Ski">Fixed Route Bus - Ski</option>
-            <option value="Route Deviation">Route Deviation</option>
-            <option value="Fixed Route Bus - UTA Rapid">Fixed Route Bus - UTA Rapid</option>
-            <option value="Commuter Rail">Commuter Rail</option>
-            <option value="Light Rail">Light Rail</option>
-            <option value="Streetcar">Streetcar</option>
-          </select>
-        </span>
       </div>
-      <svg id="chart2">
-        <g id="x-axis"></g>
-        <g id="y-axis"></g>
-        <g id="bars"></g>
-        <g id="overlay"><line></line></g>
-      </svg>
-      <!-- <select id="metric1">
-        <option value="weekday">Week Days</option>
-        <option value="weekend">Weekends</option>
-        <option value="weekday">Week Days</option>
-        <option value="weekend">Weekends</option>
-        <option value="weekday">Week Days</option>
-        <option value="weekend">Weekends</option>
-      </select> -->
-      <!-- this is for Xiaoya's type of -->
-      <span>
-        <label>Day Types</label>
-        <select id="metric2">
-          <option value="all">All Days</option>
+      <div class="column right">
+        <svg id="chart1"></svg>
+        <div class="'toolbox"> 
+          <span>
+            <label>Year</label>
+            <select id="Year">
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option selected value="2022">2022</option>
+            </select>
+          </span>
+          <span>
+            <label>Bus Type</label>
+            <select id="BusType">
+              <option value="Fixed Route Bus - Express">Fixed Route Bus - Express</option>
+              <option value="Fixed Route Bus - Regular">Fixed Route Bus - Regular</option>
+              <option selected value="Fixed Route Bus - Ski">Fixed Route Bus - Ski</option>
+              <option value="Route Deviation">Route Deviation</option>
+              <option value="Fixed Route Bus - UTA Rapid">Fixed Route Bus - UTA Rapid</option>
+              <option value="Commuter Rail">Commuter Rail</option>
+              <option value="Light Rail">Light Rail</option>
+              <option value="Streetcar">Streetcar</option>
+            </select>
+          </span>
+        </div>
+        <svg id="chart2">
+          <g id="x-axis"></g>
+          <g id="y-axis"></g>
+          <g id="bars"></g>
+          <g id="overlay"><line></line></g>
+        </svg>
+        <!-- <select id="metric1">
           <option value="weekday">Week Days</option>
           <option value="weekend">Weekends</option>
-        </select>
-      </span>
-      <svg id="chart3">
-        <g id="x-axis"></g>
-        <g id="y-axis"></g>
-        <g id="circles"></g>
-      </svg>
+          <option value="weekday">Week Days</option>
+          <option value="weekend">Weekends</option>
+          <option value="weekday">Week Days</option>
+          <option value="weekend">Weekends</option>
+        </select> -->
+        <!-- this is for Xiaoya's type of -->
+        <span>
+          <label>Day Types</label>
+          <select id="metric2">
+            <option value="all">All Days</option>
+            <option value="weekday">Week Days</option>
+            <option value="weekend">Weekends</option>
+          </select>
+        </span>
+        <svg id="chart3">
+          <g id="x-axis"></g>
+          <g id="y-axis"></g>
+          <g id="circles"></g>
+        </svg>
+      </div>
     </div>
-  </div>
+  <!-- </main> -->
+
+  <!-- <footer class="bg-light text-center text-lg-start"> -->
+    <!-- Copyright -->
+    <!-- <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2022 Copyright:
+      <a class="text-dark" href="https://github.com/xiaoyatang/Final-Project-VIS-2022">Milena Belianovich, Tark Patel & Xiaoya Tang</a>
+    </div> -->
+    <!-- Copyright -->
+  <!-- </footer> -->
 
   <script src="js/box.js"></script>
-  <script src="js/line.js"></script>
-  <script src="js/scatter.js"></script>
-  <script src="js/map.js"></script>
-  <script src="js/script.js"></script>
+    <script src="js/line.js"></script>
+    <script src="js/scatter.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/script.js"></script>
 
 </body>
 </html>
