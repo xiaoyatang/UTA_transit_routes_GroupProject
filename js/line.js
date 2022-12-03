@@ -63,7 +63,7 @@ class Line {
             .call(d3.axisLeft(this.yScale))
             .attr('transform',`translate(${this.MARGIN.left}, 0)`)
             .append('text')
-            .text('Sum Avg Onborading')
+            .text('Sum Avg Boarding')
             .attr('x', -100)
             .attr('y', -45)
             .attr('transform', 'rotate(-90)')
