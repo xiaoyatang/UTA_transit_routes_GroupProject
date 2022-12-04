@@ -8,7 +8,16 @@ async function loadData () {
     // const monthlyData = await d3.csv('data/UTA_Route_Level_Boardings_Monthly_Counts.csv');
     return { routesData, stopsData, busBoardData, stopBoardData };
   }
-  
+
+function getFilteredMonthly(year, busType, dayType) {
+    let sums = [];
+    for (let i = 0; i < 12; ++i) {
+        let a = globalApplicationState.monthlyBusData[i].filter(d => d.Year === year && d.Mode === busType
+                                                                && (dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN'))
+        sums.push(d3.sum(d3.map(a, d => d.AvgBoardings)));
+    }
+    return sums;
+}
   
   // ******* STATE MANAGEMENT *******
   // This should be all you need, but feel free to add to this if you need to 
@@ -50,37 +59,25 @@ async function loadData () {
 
 
     // globalApplicationState.selectedMonths = loadedData.
-    let busMonths = [loadedData.busBoardData.filter(d => d.Month==="January"), loadedData.busBoardData.filter(d => d.Month==="February"), 
-                      loadedData.busBoardData.filter(d => d.Month==="March"), loadedData.busBoardData.filter(d => d.Month==="April"),
-                      loadedData.busBoardData.filter(d => d.Month==="May"), loadedData.busBoardData.filter(d => d.Month==="June"),
-                      loadedData.busBoardData.filter(d => d.Month==="July"), loadedData.busBoardData.filter(d => d.Month==="August"),
-                      loadedData.busBoardData.filter(d => d.Month==="September"), loadedData.busBoardData.filter(d => d.Month==="October"), 
-                      loadedData.busBoardData.filter(d => d.Month==="November"), loadedData.busBoardData.filter(d => d.Month==="December")];
-    let busSum = [];
-    for (let i = 0; i < 12; ++i){
-      busSum.push(d3.sum(d3.map(busMonths[i], d=> d.AvgBoardings)));
-    }
+    globalApplicationState.monthlyBusData =
+          [loadedData.busBoardData.filter(d => d.Month==="January"), loadedData.busBoardData.filter(d => d.Month==="February"),
+           loadedData.busBoardData.filter(d => d.Month==="March"), loadedData.busBoardData.filter(d => d.Month==="April"),
+           loadedData.busBoardData.filter(d => d.Month==="May"), loadedData.busBoardData.filter(d => d.Month==="June"),
+           loadedData.busBoardData.filter(d => d.Month==="July"), loadedData.busBoardData.filter(d => d.Month==="August"),
+           loadedData.busBoardData.filter(d => d.Month==="September"), loadedData.busBoardData.filter(d => d.Month==="October"),
+           loadedData.busBoardData.filter(d => d.Month==="November"), loadedData.busBoardData.filter(d => d.Month==="December")];
+    for (let i = 0; i < 12; ++i)
+        globalApplicationState.monthlyBusData[i].filter(d => d.Year === "2020" || d.Year === "2021" || d.Year === "2022");
 
-    globalApplicationState.monthlyBusData = busSum;
-    console.log('Monthly Bus Data:', globalApplicationState.monthlyBusData);
+    globalApplicationState.monthlyStopData =
+          [loadedData.stopBoardData.filter(d => d.Month==="January"), loadedData.stopBoardData.filter(d => d.Month==="February"),
+           loadedData.stopBoardData.filter(d => d.Month==="March"), loadedData.stopBoardData.filter(d => d.Month==="April"),
+           loadedData.stopBoardData.filter(d => d.Month==="May"), loadedData.stopBoardData.filter(d => d.Month==="June"),
+           loadedData.stopBoardData.filter(d => d.Month==="July"), loadedData.stopBoardData.filter(d => d.Month==="August"),
+           loadedData.stopBoardData.filter(d => d.Month==="September"), loadedData.stopBoardData.filter(d => d.Month==="October"),
+           loadedData.stopBoardData.filter(d => d.Month==="November"), loadedData.stopBoardData.filter(d => d.Month==="December")];
 
-
-    let stopMonths = [loadedData.stopBoardData.filter(d => d.Month==="January"), loadedData.stopBoardData.filter(d => d.Month==="February"), 
-                      loadedData.stopBoardData.filter(d => d.Month==="March"), loadedData.stopBoardData.filter(d => d.Month==="April"),
-                      loadedData.stopBoardData.filter(d => d.Month==="May"), loadedData.stopBoardData.filter(d => d.Month==="June"),
-                      loadedData.stopBoardData.filter(d => d.Month==="July"), loadedData.stopBoardData.filter(d => d.Month==="August"),
-                      loadedData.stopBoardData.filter(d => d.Month==="September"), loadedData.stopBoardData.filter(d => d.Month==="October"), 
-                      loadedData.stopBoardData.filter(d => d.Month==="November"), loadedData.stopBoardData.filter(d => d.Month==="December")];
-    let stopSum = [];
-    for (let i = 0; i < 12; ++i){
-      stopSum.push(d3.sum(d3.map(stopMonths[i], d => d.AvgBoardings)));
-    }
-
-    globalApplicationState.monthlyStopData = stopSum;
-    // globalApplicationState.monthlyStopData = stopMonths;
-    console.log('Monthly Stop Data:', globalApplicationState.monthlyStopData);
-  
-    // Creates the view objects with the global state passed in 
+    // Creates the view objects with the global state passed in
     const map = new MapVis(globalApplicationState, "data/map.json", "data/stops.json");
     const chart1 = new Box(globalApplicationState);
     const chart2 = new Line(globalApplicationState);
@@ -95,20 +92,23 @@ async function loadData () {
           let year = d3.select('#Year').node().value;
           let busType = d3.select('#BusType').node().value;
           let dayType = d3.select('#metric2').node().value;
-          globalApplicationState.chart2.update(year, busType, dayType);
+          let sums = getFilteredMonthly(year, busType, dayType);
+          globalApplicationState.chart2.update(sums);
       });
       d3.select('#metric2').on('change', function() {
           let year = d3.select('#Year').node().value;
           let busType = d3.select('#BusType').node().value;
           let dayType = d3.select('#metric2').node().value;
-          globalApplicationState.chart2.update(year, busType, dayType);
+          let sums = getFilteredMonthly(year, busType, dayType);
+          globalApplicationState.chart2.update(sums);
           globalApplicationState.chart3.update(year, dayType);
       });
       d3.select('#Year').on('change', function() {
           let year = d3.select('#Year').node().value;
           let busType = d3.select('#BusType').node().value;
           let dayType = d3.select('#metric2').node().value;
-          globalApplicationState.chart2.update(year, busType, dayType);
+          let sums = getFilteredMonthly(year, busType, dayType);
+          globalApplicationState.chart2.update(sums);
           globalApplicationState.chart3.update(year, dayType);
       });
     // Allow clear button to clear selection
