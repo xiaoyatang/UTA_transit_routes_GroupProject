@@ -12,15 +12,16 @@ class Scatter {
             .attr('height', this.height);
         // this.yAxisPadding = 80;
         // this.xAxisPadding = 50;
-        this.margin = ({top: 20, right: 20, bottom: 62, left: 62});
+        this.margin = ({top: 20, right: 20, bottom: 90, left: 62});
 
         this.colors = d3.scaleOrdinal()
-            .domain(this.data.map( (d,i) => d.Month[i] ))
+            //.domain(this.data.map( (d,i) => d.Month[i] ))
+            .domain(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'])
             .range(['beige', 'orange', 'yellow', 'green', 'aqua', 'blue', 'darkblue', 'violet', 'purple', 'pink', 'magenta', 'black']);
 
         let year=d3.select('#Year').property('value');
         let dayType = d3.select('#metric2').property('value');
-        // this.colorScale();
+        this.colorScale();
         this.setText();
         this.update(year, dayType);
     }
@@ -85,7 +86,7 @@ class Scatter {
             .append('text')
             .text('Average Boarding')
             .attr('x', (this.width)/2 + this.margin.right)
-            .attr('y', this.margin.bottom/2 + 10)
+            .attr('y', this.margin.bottom/2 - 10)
             .attr("stroke","black")
             .attr("font-size","15px");
         this.svg.select('#y-axis')
@@ -132,6 +133,262 @@ class Scatter {
             //     .style("fill", (d, i) => this.colors(d.Month))
             //     .attr("r", 2.5);
             //     });
+    }
+
+    colorScale(){
+        let Labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        let colorDist = ['beige', 'orange', 'yellow', 'green', 'aqua', 'blue', 'darkblue', 'violet', 'purple', 'pink', 'magenta', 'black'];
+
+        let square = this.svg
+            .select('#colorScale')
+            .attr('transform',`translate(10, ${this.width - this.margin.top - 20})`)
+
+        let diff1 = 82;
+        let diff2 = 85;
+        
+        // this.svg.select('#colorScale')
+        //     .attr('transform',`translate(10, ${this.width - this.margin.top - 20})`)
+        square
+            // .attr("transform", `translate(this.margin.top, 120)`)
+            // .selectAll("rect")
+            // .data(this.colors)
+            .append('g')
+            .append('rect')
+            .attr('width', 10)
+            .attr('height', 10)
+            .attr('fill', colorDist[0])
+            .attr('stroke', 'black')
+            .attr('stroke-width', 0.2)
+            .style("opacity", 1);
+
+        square.select('g')
+            .append("text")
+            .attr("x", 18)
+            .attr("y", 10)
+            //.attr("dy", ".35em")
+            .text(Labels[0])
+            .attr("font-size","15px");
+        
+        square
+            // .attr("transform", `translate(this.margin.top, 120)`)
+            // .selectAll("rect")
+            // .data(this.colors)
+            .append('g')
+            .append('rect')
+            .attr('transform',`translate(85, 0)`)
+            .attr('width', 10)
+            .attr('height', 10)
+            .attr('fill', colorDist[1])
+            .attr('stroke', 'black')
+            .attr('stroke-width', 0.2)
+            .style("opacity", 1);
+
+        square.select('g')
+            .append("text")
+            .attr("x", 18 + diff1)
+            .attr("y", 10)
+            //.attr("dy", ".35em")
+            .text(Labels[1])
+            .attr("font-size","15px");
+
+        square
+            .append('g')
+            .append('rect')
+            .attr('transform',`translate(diff2*2, 0)`)
+            .attr('width', 10)
+            .attr('height', 10)
+            .attr('fill', colorDist[2])
+            .attr('stroke', 'black')
+            .attr('stroke-width', 0.2)
+            .style("opacity", 1);
+
+        square.select('g')
+            .append("text")
+            .attr("x", 18 + diff1*2)
+            .attr("y", 10)
+            .text(Labels[2])
+            .attr("font-size","15px");
+
+            square
+            .append('g')
+            .append('rect')
+            .attr('transform',`translate(diff2*2, 0)`)
+            .attr('width', 10)
+            .attr('height', 10)
+            .attr('fill', colorDist[2])
+            .attr('stroke', 'black')
+            .attr('stroke-width', 0.2)
+            .style("opacity", 1);
+
+        square.select('g')
+            .append("text")
+            .attr("x", 18 + diff1*3)
+            .attr("y", 10)
+            .text(Labels[3])
+            .attr("font-size","15px");
+            
+            square
+            .append('g')
+            .append('rect')
+            .attr('transform',`translate(diff2*3, 0)`)
+            .attr('width', 10)
+            .attr('height', 10)
+            .attr('fill', colorDist[3])
+            .attr('stroke', 'black')
+            .attr('stroke-width', 0.2)
+            .style("opacity", 1);
+
+        square.select('g')
+            .append("text")
+            .attr("x", 18 + diff1*4)
+            .attr("y", 10)
+            .text(Labels[4])
+            .attr("font-size","15px");
+
+            square
+            .append('g')
+            .append('rect')
+            .attr('transform',`translate(diff2*4, 0)`)
+            .attr('width', 10)
+            .attr('height', 10)
+            .attr('fill', colorDist[4])
+            .attr('stroke', 'black')
+            .attr('stroke-width', 0.2)
+            .style("opacity", 1);
+
+        square.select('g')
+            .append("text")
+            .attr("x", 18 + diff1*5)
+            .attr("y", 10)
+            .text(Labels[5])
+            .attr("font-size","15px");
+
+            square
+            .append('g')
+            .append('rect')
+            .attr('transform',`translate(diff2*5, 0)`)
+            .attr('width', 10)
+            .attr('height', 10)
+            .attr('fill', colorDist[5])
+            .attr('stroke', 'black')
+            .attr('stroke-width', 0.2)
+            .style("opacity", 1);
+
+        square.select('g')
+            .append("text")
+            .attr("x", 18 + diff1*6)
+            .attr("y", 10)
+            .text(Labels[6])
+            .attr("font-size","15px");
+
+            square
+            .append('g')
+            .append('rect')
+            .attr('transform',`translate(diff2*6, 0)`)
+            .attr('width', 10)
+            .attr('height', 10)
+            .attr('fill', colorDist[6])
+            .attr('stroke', 'black')
+            .attr('stroke-width', 0.2)
+            .style("opacity", 1);
+
+        square.select('g')
+            .append("text")
+            .attr("x", 18 + diff1*7)
+            .attr("y", 10)
+            .text(Labels[7])
+            .attr("font-size","15px");
+
+            square
+            .append('g')
+            .append('rect')
+            .attr('transform',`translate(diff2*7, 0)`)
+            .attr('width', 10)
+            .attr('height', 10)
+            .attr('fill', colorDist[7])
+            .attr('stroke', 'black')
+            .attr('stroke-width', 0.2)
+            .style("opacity", 1);
+
+        square.select('g')
+            .append("text")
+            .attr("x", 18 + diff1*8)
+            .attr("y", 10)
+            .text(Labels[8])
+            .attr("font-size","15px");
+
+            square
+            .append('g')
+            .append('rect')
+            .attr('transform',`translate(diff2*8, 0)`)
+            .attr('width', 10)
+            .attr('height', 10)
+            .attr('fill', colorDist[8])
+            .attr('stroke', 'black')
+            .attr('stroke-width', 0.2)
+            .style("opacity", 1);
+
+        // square.select('g')
+        //     .append("text")
+        //     .attr("x", 18 + diff1*2)
+        //     .attr("y", 10)
+        //     .text(Labels[2])
+        //     .attr("font-size","15px");
+
+        //     square
+        //     .append('g')
+        //     .append('rect')
+        //     .attr('transform',`translate(diff2*2, 0)`)
+        //     .attr('width', 10)
+        //     .attr('height', 10)
+        //     .attr('fill', colorDist[2])
+        //     .attr('stroke', 'black')
+        //     .attr('stroke-width', 0.2)
+        //     .style("opacity", 1);
+
+        // square.select('g')
+        //     .append("text")
+        //     .attr("x", 18 + diff1*2)
+        //     .attr("y", 10)
+        //     .text(Labels[2])
+        //     .attr("font-size","15px");
+
+        //     square
+        //     .append('g')
+        //     .append('rect')
+        //     .attr('transform',`translate(diff2*2, 0)`)
+        //     .attr('width', 10)
+        //     .attr('height', 10)
+        //     .attr('fill', colorDist[2])
+        //     .attr('stroke', 'black')
+        //     .attr('stroke-width', 0.2)
+        //     .style("opacity", 1);
+
+        // square.select('g')
+        //     .append("text")
+        //     .attr("x", 18 + diff1*2)
+        //     .attr("y", 10)
+        //     .text(Labels[2])
+        //     .attr("font-size","15px");
+
+        //     square
+        //     .append('g')
+        //     .append('rect')
+        //     .attr('transform',`translate(diff2*2, 0)`)
+        //     .attr('width', 10)
+        //     .attr('height', 10)
+        //     .attr('fill', colorDist[2])
+        //     .attr('stroke', 'black')
+        //     .attr('stroke-width', 0.2)
+        //     .style("opacity", 1);
+
+        // square.select('g')
+        //     .append("text")
+        //     .attr("x", 18 + diff1*2)
+        //     .attr("y", 10)
+        //     .text(Labels[2])
+        //     .attr("font-size","15px");
+
     }
     // colorScale(){
         // console.log(d3.schemeSet3);
