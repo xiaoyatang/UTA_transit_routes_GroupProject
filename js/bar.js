@@ -1,4 +1,4 @@
-class Line {
+class Bar {
     constructor(globalApplicationState){
         this.firstRun = true;
         this.data = globalApplicationState.monthlyBusData;
