@@ -143,8 +143,8 @@ class Scatter {
             .select('#colorScale')
             .attr('transform',`translate(10, ${this.width - this.margin.top - 20})`)
 
-        let diff1 = 82;
-        let diff2 = 85;
+        let diff1 = 75;
+        // let diff2 = 85;
         
         // this.svg.select('#colorScale')
         //     .attr('transform',`translate(10, ${this.width - this.margin.top - 20})`)
@@ -154,8 +154,8 @@ class Scatter {
             // .data(this.colors)
             .append('g')
             .append('rect')
-            .attr('width', 10)
-            .attr('height', 10)
+            .attr('width', 8)
+            .attr('height', 8)
             .attr('fill', colorDist[0])
             .attr('stroke', 'black')
             .attr('stroke-width', 0.2)
@@ -163,21 +163,17 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", 18)
+            .attr("x", 16)
             .attr("y", 10)
-            //.attr("dy", ".35em")
             .text(Labels[0])
-            .attr("font-size","15px");
+            .attr("font-size","12.5px");
         
         square
-            // .attr("transform", `translate(this.margin.top, 120)`)
-            // .selectAll("rect")
-            // .data(this.colors)
             .append('g')
             .append('rect')
-            .attr('transform',`translate(85, 0)`)
-            .attr('width', 10)
-            .attr('height', 10)
+            .attr('transform',`translate(73, 0)`)
+            .attr('width', 8)
+            .attr('height', 8)
             .attr('fill', colorDist[1])
             .attr('stroke', 'black')
             .attr('stroke-width', 0.2)
@@ -185,18 +181,17 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", 18 + diff1)
+            .attr("x", 16 + diff1)
             .attr("y", 10)
-            //.attr("dy", ".35em")
             .text(Labels[1])
-            .attr("font-size","15px");
+            .attr("font-size","12.5px");
 
         square
             .append('g')
             .append('rect')
-            .attr('transform',`translate(diff2*2, 0)`)
-            .attr('width', 10)
-            .attr('height', 10)
+            .attr('transform',`translate(146, 0)`)
+            .attr('width', 8)
+            .attr('height', 8)
             .attr('fill', colorDist[2])
             .attr('stroke', 'black')
             .attr('stroke-width', 0.2)
@@ -204,35 +199,17 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", 18 + diff1*2)
+            .attr("x", 16 + diff1*2)
             .attr("y", 10)
             .text(Labels[2])
-            .attr("font-size","15px");
+            .attr("font-size","12.5px");
 
-            square
+        square
             .append('g')
             .append('rect')
-            .attr('transform',`translate(diff2*2, 0)`)
-            .attr('width', 10)
-            .attr('height', 10)
-            .attr('fill', colorDist[2])
-            .attr('stroke', 'black')
-            .attr('stroke-width', 0.2)
-            .style("opacity", 1);
-
-        square.select('g')
-            .append("text")
-            .attr("x", 18 + diff1*3)
-            .attr("y", 10)
-            .text(Labels[3])
-            .attr("font-size","15px");
-            
-            square
-            .append('g')
-            .append('rect')
-            .attr('transform',`translate(diff2*3, 0)`)
-            .attr('width', 10)
-            .attr('height', 10)
+            .attr('transform',`translate(219, 0)`)
+            .attr('width', 8)
+            .attr('height', 8)
             .attr('fill', colorDist[3])
             .attr('stroke', 'black')
             .attr('stroke-width', 0.2)
@@ -240,17 +217,17 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", 18 + diff1*4)
+            .attr("x", 16 + diff1*3)
             .attr("y", 10)
-            .text(Labels[4])
-            .attr("font-size","15px");
-
-            square
+            .text(Labels[3])
+            .attr("font-size","12.5px");
+            
+        square
             .append('g')
             .append('rect')
-            .attr('transform',`translate(diff2*4, 0)`)
-            .attr('width', 10)
-            .attr('height', 10)
+            .attr('transform',`translate(292, 0)`)
+            .attr('width', 8)
+            .attr('height', 8)
             .attr('fill', colorDist[4])
             .attr('stroke', 'black')
             .attr('stroke-width', 0.2)
@@ -258,17 +235,17 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", 18 + diff1*5)
+            .attr("x", 16 + diff1*4)
             .attr("y", 10)
-            .text(Labels[5])
-            .attr("font-size","15px");
+            .text(Labels[4])
+            .attr("font-size","12.5px");
 
-            square
+        square
             .append('g')
             .append('rect')
-            .attr('transform',`translate(diff2*5, 0)`)
-            .attr('width', 10)
-            .attr('height', 10)
+            .attr('transform',`translate(365, 0)`)
+            .attr('width', 8)
+            .attr('height', 8)
             .attr('fill', colorDist[5])
             .attr('stroke', 'black')
             .attr('stroke-width', 0.2)
@@ -276,17 +253,17 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", 18 + diff1*6)
+            .attr("x", 16 + diff1*5)
             .attr("y", 10)
-            .text(Labels[6])
-            .attr("font-size","15px");
+            .text(Labels[5])
+            .attr("font-size","12.5px");
 
             square
             .append('g')
             .append('rect')
-            .attr('transform',`translate(diff2*6, 0)`)
-            .attr('width', 10)
-            .attr('height', 10)
+            .attr('transform',`translate(438, 0)`)
+            .attr('width', 8)
+            .attr('height', 8)
             .attr('fill', colorDist[6])
             .attr('stroke', 'black')
             .attr('stroke-width', 0.2)
@@ -294,17 +271,17 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", 18 + diff1*7)
+            .attr("x", 16 + diff1*6)
             .attr("y", 10)
-            .text(Labels[7])
-            .attr("font-size","15px");
+            .text(Labels[6])
+            .attr("font-size","12.5px");
 
             square
             .append('g')
             .append('rect')
-            .attr('transform',`translate(diff2*7, 0)`)
-            .attr('width', 10)
-            .attr('height', 10)
+            .attr('transform',`translate(511, 0)`)
+            .attr('width', 8)
+            .attr('height', 8)
             .attr('fill', colorDist[7])
             .attr('stroke', 'black')
             .attr('stroke-width', 0.2)
@@ -312,28 +289,46 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", 18 + diff1*8)
+            .attr("x", 16 + diff1*7)
             .attr("y", 10)
-            .text(Labels[8])
-            .attr("font-size","15px");
+            .text(Labels[7])
+            .attr("font-size","12.5px");
 
             square
             .append('g')
             .append('rect')
-            .attr('transform',`translate(diff2*8, 0)`)
-            .attr('width', 10)
-            .attr('height', 10)
+            .attr('transform',`translate(680, 0)`)
+            .attr('width', 8)
+            .attr('height', 8)
             .attr('fill', colorDist[8])
             .attr('stroke', 'black')
             .attr('stroke-width', 0.2)
             .style("opacity", 1);
 
-        // square.select('g')
-        //     .append("text")
-        //     .attr("x", 18 + diff1*2)
-        //     .attr("y", 10)
-        //     .text(Labels[2])
-        //     .attr("font-size","15px");
+        square.select('g')
+            .append("text")
+            .attr("x", 16 + diff1*8)
+            .attr("y", 10)
+            .text(Labels[8])
+            .attr("font-size","12.5px");
+
+        square
+            .append('g')
+            .append('rect')
+            .attr('transform',`translate(765, 0)`)
+            .attr('width', 8)
+            .attr('height', 8)
+            .attr('fill', colorDist[9])
+            .attr('stroke', 'black')
+            .attr('stroke-width', 0.2)
+            .style("opacity", 1);
+
+        square.select('g')
+            .append("text")
+            .attr("x", 16 + diff1*9)
+            .attr("y", 10)
+            .text(Labels[9])
+            .attr("font-size","12.5px");
 
         //     square
         //     .append('g')
