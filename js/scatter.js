@@ -207,7 +207,7 @@ class Scatter {
         square
             .append('g')
             .append('rect')
-            .attr('transform',`translate(220, 0)`)
+            .attr('transform',`translate(218, 0)`)
             .attr('width', 8)
             .attr('height', 8)
             .attr('fill', colorDist[3])
@@ -217,7 +217,7 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", 19 + diff1*3)
+            .attr("x", 17 + diff1*3)
             .attr("y", 10)
             .text(Labels[3])
             .attr("font-size","12.5px");
@@ -225,7 +225,7 @@ class Scatter {
         square
             .append('g')
             .append('rect')
-            .attr('transform',`translate(288, 0)`)
+            .attr('transform',`translate(286, 0)`)
             .attr('width', 8)
             .attr('height', 8)
             .attr('fill', colorDist[4])
@@ -235,7 +235,7 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", 12 + diff1*4)
+            .attr("x", 10 + diff1*4)
             .attr("y", 10)
             .text(Labels[4])
             .attr("font-size","12.5px");
@@ -243,7 +243,7 @@ class Scatter {
         square
             .append('g')
             .append('rect')
-            .attr('transform',`translate(345, 0)`)
+            .attr('transform',`translate(340, 0)`)
             .attr('width', 8)
             .attr('height', 8)
             .attr('fill', colorDist[5])
@@ -253,7 +253,7 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", diff1*5 - 4)
+            .attr("x", diff1*5 - 9)
             .attr("y", 10)
             .text(Labels[5])
             .attr("font-size","12.5px");
@@ -261,7 +261,7 @@ class Scatter {
             square
             .append('g')
             .append('rect')
-            .attr('transform',`translate(438, 0)`)
+            .attr('transform',`translate(400, 0)`)
             .attr('width', 8)
             .attr('height', 8)
             .attr('fill', colorDist[6])
@@ -271,7 +271,7 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", 16 + diff1*6)
+            .attr("x", diff1*6 - 20)
             .attr("y", 10)
             .text(Labels[6])
             .attr("font-size","12.5px");
