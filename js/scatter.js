@@ -351,7 +351,7 @@ class Scatter {
         square
             .append('g')
             .append('rect')
-            .attr('transform',`translate(303, 20)`)
+            .attr('transform',`translate(305, 20)`)
             .attr('width', 8)
             .attr('height', 8)
             .attr('fill', colorDist[11])
@@ -361,7 +361,7 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", diff1*4 + 27)
+            .attr("x", diff1*4 + 29)
             .attr("y", 30)
             .text(Labels[11])
             .attr("font-size","12.5px");
