@@ -111,6 +111,8 @@ class Scatter {
             .data(filteredData)
             .join("circle")
             .attr("class", "scatters")
+            .transition()
+            .duration('2000')
             .attr("cx", (d) => this.xAxis(d.AvgBoard))
             .attr("cy", (d) => this.yAxis(d.AvgAlight))
             .attr("r", 3)
@@ -118,9 +120,7 @@ class Scatter {
             .attr('fill', (d, i) => this.colors(d.Month))
             .attr('stroke', 'black')
             .attr('stroke-width', 0.2)
-            .style("opacity", 0.8)
-            .transition()
-            .duration('2000');
+            .style("opacity", 0.8);
             // .on("mouseover", function(d){
             //     d3.select("#circles").select("circle")
             //     .style("fill", "#979696")
