@@ -141,7 +141,7 @@ class Scatter {
 
         let square = this.svg
             .select('#colorScale')
-            .attr('transform',`translate(10, ${this.width - this.margin.top - 18})`)
+            .attr('transform',`translate(27, ${this.width - this.margin.top - 18})`)
 
         let diff1 = 73;
         // let diff2 = 85;
