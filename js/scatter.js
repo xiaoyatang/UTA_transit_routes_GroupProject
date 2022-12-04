@@ -290,7 +290,7 @@ class Scatter {
         square.select('g')
             .append("text")
             .attr("x", 14)
-            .attr("y", 20)
+            .attr("y", 30)
             .text(Labels[7])
             .attr("font-size","12.5px");
         
@@ -308,14 +308,14 @@ class Scatter {
         square.select('g')
             .append("text")
             .attr("x", 13 + diff1)
-            .attr("y", 20)
+            .attr("y", 30)
             .text(Labels[8])
             .attr("font-size","12.5px");
 
         square
             .append('g')
             .append('rect')
-            .attr('transform',`translate(144, 20)`)
+            .attr('transform',`translate(154, 20)`)
             .attr('width', 8)
             .attr('height', 8)
             .attr('fill', colorDist[9])
@@ -325,15 +325,15 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", 14 + diff1*2)
-            .attr("y", 20)
+            .attr("x", 23 + diff1*2)
+            .attr("y", 30)
             .text(Labels[9])
             .attr("font-size","12.5px");
 
         square
             .append('g')
             .append('rect')
-            .attr('transform',`translate(205, 20)`)
+            .attr('transform',`translate(221, 20)`)
             .attr('width', 8)
             .attr('height', 8)
             .attr('fill', colorDist[10])
@@ -343,15 +343,15 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", diff1*3)
-            .attr("y", 20)
+            .attr("x", diff1*3 + 16)
+            .attr("y", 30)
             .text(Labels[10])
             .attr("font-size","12.5px");
             
         square
             .append('g')
             .append('rect')
-            .attr('transform',`translate(253, 20)`)
+            .attr('transform',`translate(290, 20)`)
             .attr('width', 8)
             .attr('height', 8)
             .attr('fill', colorDist[11])
@@ -361,8 +361,8 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", diff1*4 - 23)
-            .attr("y", 20)
+            .attr("x", diff1*4 + 14)
+            .attr("y", 30)
             .text(Labels[11])
             .attr("font-size","12.5px");
 
