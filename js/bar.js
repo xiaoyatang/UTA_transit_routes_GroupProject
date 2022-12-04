@@ -1,7 +1,7 @@
 class Bar {
     constructor(globalApplicationState){
         this.firstRun = true;
-        this.data = globalApplicationState.monthlyBusData;
+        this.data = globalApplicationState.monthlyBusData; //including all years.
 
         this.CHART_WIDTH = 400;
         this.CHART_HEIGHT = 400;
@@ -18,7 +18,7 @@ class Bar {
                               && (dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')))
             sums.push(d3.sum(d3.map(filteredData[i], d => d.AvgBoardings)));
         }
-        console.log(sums)
+        console.log(sums,filteredData); //filteredData is organized by 12 months filtered by year & busType. sum is the summation avgBoarding of each month.
         this.setText(sums);
         this.update(sums);
 
@@ -28,7 +28,7 @@ class Bar {
     }
 
     setText(data){
-        let labelData = ['Jan', 'Feb', 'Mar', "Apr", 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        // let labelData = ['Jan', 'Feb', 'Mar', "Apr", 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         let svg = d3.select('#chart2')
             .attr('width',this.CHART_WIDTH)
             .attr('height',this.CHART_HEIGHT);
@@ -37,20 +37,18 @@ class Bar {
             // .domain([0, d3.max(sum, c => c)])
             .domain([0, d3.max(data, c => c)])
             .range([this.CHART_HEIGHT - this.MARGIN.bottom - this.MARGIN.top, 15]);
-        this.xScale = d3.scaleBand()
-            .domain(labelData)
-            .range([this.MARGIN.left, this.CHART_WIDTH - this.MARGIN.right])
-            .padding(0.3);
-        
-        svg.select('#x-axis')
-            .append('text')
-            .text('Date')
-            .attr('x', (this.CHART_WIDTH-this.MARGIN.right)/2)
-            .attr('y', this.CHART_HEIGHT-3) //397
-            .attr("stroke","black")
-            .attr('stroke-width', 0.75)
-            .attr("font-size","15px")
-            .attr('fill', 'white');
+        // this.xScale = d3.scaleBand()
+        //     .domain(labelData)
+        //     .range([this.MARGIN.left, this.CHART_WIDTH - this.MARGIN.right])
+        //     .padding(0.3);
+        svg
+        .select('#x-axis')
+        .append('text')
+        .text('Date')
+        .attr('x',219)
+        .attr('y', 33)
+        .attr("stroke","black")
+        .attr("font-size","15px");
 
         svg.select('#y-axis')
             .call(d3.axisLeft(this.yScale))
@@ -66,9 +64,9 @@ class Bar {
 
     updateBar(data){
         let labelData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        let svg = d3.select('#chart2')
-            .attr('width', this.CHART_WIDTH)
-            .attr('height', this.CHART_HEIGHT);
+        let svg = d3.select('#chart2');
+            // .attr('width', this.CHART_WIDTH)
+            // .attr('height', this.CHART_HEIGHT);
         this.yScale = d3.scaleLinear()
             .domain([0, d3.max(data)])
             .range([this.CHART_HEIGHT - this.MARGIN.bottom - this.MARGIN.top,15])
@@ -76,33 +74,15 @@ class Bar {
             .domain(labelData)
             .range([this.MARGIN.left, this.CHART_WIDTH - this.MARGIN.right])
             .padding(0.3);
-        // let svg=d3.select('#chart2')
-        //         .attr('width',this.CHART_WIDTH)
-        //         .attr('height',this.CHART_HEIGHT);
+   
         svg.select('#x-axis')
-            .append('g')
+            // .append('g')
             .attr('transform',`translate(0, ${this.CHART_HEIGHT - this.MARGIN.bottom - this.MARGIN.top})`)
             .call(d3.axisBottom(this.xScale))
 
+
         svg.select('#y-axis')
-            .call(d3.axisLeft(this.yScale))
-        // svg.select('#x-axis')
-        //     .append('text')
-        //     .text('Date')
-        //     .attr('x', (this.CHART_WIDTH-this.MARGIN.right)/2)
-        //     .attr('y', this.CHART_HEIGHT-10)
-        //     .attr("stroke","black")
-        //     .attr("font-size","15px");
-        // svg.select('#y-axis')
-        //     .call(d3.axisLeft(this.yScale))
-        //     .attr('transform',`translate(${this.MARGIN.left}, 0)`)
-        //     .append('text')
-        //     .text('Sum Avg Onborading')
-        //     .attr('x', -100)
-        //     .attr('y', -45)
-        //     .attr('transform', 'rotate(-90)')
-        //     .attr("stroke","black")
-        //     .attr("font-size","15px");           
+            .call(d3.axisLeft(this.yScale))  
     }
 
     update(data) {
