@@ -1,7 +1,7 @@
 class Bar {
     constructor(globalApplicationState){
         this.firstRun = true;
-        this.data = globalApplicationState.monthlyBusData; //including all years.
+        this.data = globalApplicationState.monthlyBusData; //including all years
 
         this.CHART_WIDTH = 400;
         this.CHART_HEIGHT = 400;
@@ -17,7 +17,7 @@ class Bar {
                               && (dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')))
             sums.push(d3.sum(d3.map(filteredData[i], d => d.AvgBoardings)));
         }
-        console.log(sums,filteredData); //filteredData is organized by 12 months filtered by year & busType. sum is the summation avgBoarding of each month.
+
         this.setText(sums);
         this.update(sums);
     }
@@ -35,10 +35,12 @@ class Bar {
             .select('#x-axis')
             .append('text')
             .text('Date')
-            .attr('x', this.CHART_WIDTH - this.MARGIN.right)
-            .attr('y', this.CHART_HEIGHT - 3)
-            .attr("stroke","black")
-            .attr("font-size","15px");
+            .attr('x', (this.CHART_WIDTH-this.MARGIN.right)/2)
+            .attr('y', this.CHART_HEIGHT-3) //397
+            .attr("stroke", "black")
+            .attr('stroke-width', 0.75)
+            .attr("font-size","15px")
+            .attr('fill', 'white');
 
         svg
             .select('#y-axis')
