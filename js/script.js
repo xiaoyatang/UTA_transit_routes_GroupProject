@@ -44,10 +44,10 @@ function getFilteredMonthly(year, busType, dayType) {
   //******* APPLICATION MOUNTING *******
   loadData().then((loadedData) => {
     //console.log('Here is the imported data:', loadedData.covidData);
-    console.log('Routes:', loadedData.routesData);
-    console.log('Stops:', loadedData.stopsData);
-    console.log('Route Boardings:', loadedData.busBoardData);
-    console.log('Stop Boardings:', loadedData.stopBoardData);
+    // console.log('Routes:', loadedData.routesData);
+    // console.log('Stops:', loadedData.stopsData);
+    // console.log('Route Boardings:', loadedData.busBoardData);
+    // console.log('Stop Boardings:', loadedData.stopBoardData);
     // console.log('Monthly Boardings:', loadedData.monthlyData);
 
   
