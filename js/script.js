@@ -42,7 +42,6 @@ function getFilteredMonthly() {
     lineAbbrs: [],
     stopAbbrs: [],
     map: null,
-    chart1: null,
     chart2: null,
     chart3: null,
     year: null,
@@ -96,12 +95,10 @@ function getFilteredMonthly() {
 
     // Creates the view objects with the global state passed in
     const map = new MapVis(globalApplicationState, "data/map.json", "data/stops.json");
-    const chart1 = new Box(globalApplicationState);
     const chart2 = new Bar(globalApplicationState);
     const chart3 = new Scatter(globalApplicationState);
 
     globalApplicationState.map = map;
-    globalApplicationState.chart1 = chart1;
     globalApplicationState.chart2 = chart2;
     globalApplicationState.chart3 = chart3;
 
