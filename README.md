@@ -9,7 +9,8 @@
 **UIDs**: u1419504, u0893472, u1368791.
 
 ## Description: 
-This project will visualize the traffic routes and other relative information in Salt Lake City in Utah.
+This project visualizes the traffic routes and other relative information in Salt Lake City in Utah.
+Main point of this visualization is letting the user find interesting data correlations between different choices of routes on the map.
 
 ## Milestone 1, a Functional project prototype：
   Hand in the code and our process book in its current state.
@@ -50,7 +51,7 @@ This project will visualize the traffic routes and other relative information in
       5. Clicking the cursor at any point on the map allows the user to see the closest routes and stops to the chosen spot on the map. THe tooltip shows arrows for going between possible routes/stops of interest, while the selection in the background changes accordingly.
 
     - Graphs:
-    
+
       1. While the brush on the map is selecting routes, those will be mirrored on the graphs provided. However, additional filtering is alloweed through drop-down error choices.
 
       2. When the brush is removed, the selection for the graph data goes to its initial (starting) selection.
