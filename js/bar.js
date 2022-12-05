@@ -19,19 +19,13 @@ class Bar {
     }
 
     setText(sums){
-        let labelData = ['Jan', 'Feb', 'Mar', "Apr", 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         let svg = d3.select('#chart2')
             .attr('width',this.CHART_WIDTH)
             .attr('height',this.CHART_HEIGHT);
 
         this.yScale = d3.scaleLinear()
-            // .domain([0, d3.max(sum, c => c)])
             .domain([0, d3.max(sums, c => c)])
             .range([this.CHART_HEIGHT - this.MARGIN.bottom - this.MARGIN.top, 15]);
-        this.xScale = d3.scaleBand()
-            .domain(labelData)
-            .range([this.MARGIN.left, this.CHART_WIDTH - this.MARGIN.right])
-            .padding(0.3);
 
         svg.select('#x-axis')
             .append('text')
@@ -39,7 +33,7 @@ class Bar {
             .attr('x', (this.CHART_WIDTH-this.MARGIN.right)/2)
             .attr('y', this.CHART_HEIGHT-3) //397
             .attr("stroke","black")
-            .attr('stroke-width', 0.75)
+            .attr('stroke-width', 0.85)
             .attr("font-size","15px")
             .attr('fill', 'white');
 
@@ -63,13 +57,12 @@ class Bar {
         this.yScale = d3.scaleLinear()
             .domain([0, d3.max(sums)])
             .range([this.CHART_HEIGHT - this.MARGIN.bottom - this.MARGIN.top,15])
+            .nice();
         this.xScale = d3.scaleBand()
             .domain(labelData)
             .range([this.MARGIN.left, this.CHART_WIDTH - this.MARGIN.right])
             .padding(0.3);
-        // let svg=d3.select('#chart2')
-        //         .attr('width',this.CHART_WIDTH)
-        //         .attr('height',this.CHART_HEIGHT);
+
         svg.select('#x-axis')
             .append('g')
             .attr('transform',`translate(0, ${this.CHART_HEIGHT - this.MARGIN.bottom - this.MARGIN.top})`)
@@ -77,23 +70,6 @@ class Bar {
 
         svg.select('#y-axis')
             .call(d3.axisLeft(this.yScale))
-        // svg.select('#x-axis')
-        //     .append('text')
-        //     .text('Date')
-        //     .attr('x', (this.CHART_WIDTH-this.MARGIN.right)/2)
-        //     .attr('y', this.CHART_HEIGHT-10)
-        //     .attr("stroke","black")
-        //     .attr("font-size","15px");
-        // svg.select('#y-axis')
-        //     .call(d3.axisLeft(this.yScale))
-        //     .attr('transform',`translate(${this.MARGIN.left}, 0)`)
-        //     .append('text')
-        //     .text('Sum Avg Onborading')
-        //     .attr('x', -100)
-        //     .attr('y', -45)
-        //     .attr('transform', 'rotate(-90)')
-        //     .attr("stroke","black")
-        //     .attr("font-size","15px");
     }
 
     update(data = this.data) {
