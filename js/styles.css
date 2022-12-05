@@ -4,6 +4,133 @@
     font-family: 'Roboto', sans-serif;
 }
 
+.newsletter-banner {
+    text-align: center;
+    padding: 40px 10px;
+    background: #ffcc80;
+    background: linear-gradient(219deg, #ffd7d7 0%, #ffd6ce 51%, #ffdfc7 75%);
+    border-bottom: solid 10px #fff;
+}
+  
+.newsletter-banner strong {
+    font-size: 140%;
+}
+
+.newsletter-banner input {
+    padding: 5px 10px;
+}
+
+.newsletter-banner input[type="submit"] {
+    line-height: 1.75;
+}
+  
+
+.top-nav {
+    padding: 7px;
+    border-bottom: none;
+    box-shadow: rgba(0,0,0,0.5) 0 0 4px;
+    margin-bottom: 10px;
+    text-align: left;
+    background: linear-gradient(141deg, #12d0e5 0%, #1cc9dc 51%, #2cbcf0 75%);
+    /* text-decoration-color: #fff; */
+}
+
+.top-nav .pull-left {
+    color: rgb(37, 75, 142);
+}
+
+.top-nav .pull-right a {
+    padding-left: 5px;
+    size: 100px;
+}
+
+footer {
+    background: linear-gradient(141deg, #12d0e5 0%, #1cc9dc 51%, #2cbcf0 75%);
+    color: rgb(37, 75, 142);
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+  
+.newsletter-banner a, footer a {
+    color: #333;
+    background: #fff;
+    padding: 0 3px;
+}
+  
+footer .fa {
+    /* text-decoration: underline; */
+    color: white;
+ }
+
+ .infinite-copyright-wrapper .copyright{
+    text-align: center;
+    color: rgb(37, 75, 142);
+ }
+
+.header {
+    width: 600px;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#map {
+    height: 90%;
+    width: 90%;
+}
+
+.column {
+    float: left;
+}
+
+.left {
+    width: 65%;
+}
+
+.right {
+    width: 35%;
+}
+
+.bar {
+/* fill: rgb(79, 175, 211);*/
+    fill: #2cbcf0; 
+    opacity:0.7;
+}
+
+.bar:hover {   
+    fill: #979696;
+}
+
+.scatters:hover {
+    fill: #979696;
+    opacity: 0.1;
+}
+
+
+/* 
+header {
+    background-color: orange;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 5px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 25px 0 black;
+}
+
+header * {
+    display: inline;
+}
+header li {
+    margin: 20px;
+}
+header li a {
+    color: blue;
+    text-decoration: none;
+} */
+
 /* .column {
     float: left;
   }
@@ -67,9 +194,4 @@
     width: 700px;
     height: 500px;
 } */
-.header {
-    width: 600px;
-    margin: auto;
-    text-align: center;
-    margin-bottom: 50px;
-}
+

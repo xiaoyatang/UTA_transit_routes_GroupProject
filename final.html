@@ -1,120 +1,181 @@
   <meta charset="utf-8" />
   <title>UTA Transit Routes</title>
-
-  <style>
-    #map {
-      height: 90%;
-      width: 90%;
-    }
-    .column {
-        float: left;
-    }
-    .left {
-        width: 65%;
-    }
-    .right {
-        width: 35%;
-    }
-    .bar {
-      /* fill: rgb(79, 175, 211);*/
-      fill: rgb(211, 121, 79); 
-      opacity:0.7;
-    }
-    .bar:hover {   
-      fill: #979696;
-    }
-
-    .scatters:hover {
-      fill: #979696;
-      opacity: 0.1;
-    }
-  </style>
   
   <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css" />
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/js/styles.css"/>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://js.arcgis.com/4.25/"></script>
 </head>
 
 <body>
-  <h1>UTA Transit Routes</h1>
-  <div>Authors: Milena Belianovich, Tark Patel, Xiaoya Tang</div>
-  <div class='row' id='content'>
-    <div class="column left">
-      <div id="map"></div>
-      <div id="select-by-rectangle"
-        class="esri-widget esri-widget--button esri-widget esri-interactive"
-        title="Select features by rectangle">
-        <span class="esri-icon-checkbox-unchecked"></span>
+  <div id="wrapper">
+    <div class="top-nav">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <!-- <strong><a href="/">Jonathan Soma</a></strong>  -->
+            <!-- <h4>Authors: Milena Belianovich, Tark Patel, Xiaoya Tang</h4> -->
+            <!-- <strong>Milena Belianovich, Tark Patel, Xiaoya Tang</strong>  -->
+            <div class="pull-left">
+              Authors: Milena Belianovich, Tark Patel, Xiaoya Tang
+            </div>
+            <!-- Authors: Milena Belianovich, Tark Patel, Xiaoya Tang -->
+            <div class="pull-right">
+              <a target="_new" href="https://github.com/xiaoyatang/Final-Project-VIS-2022"><i class="fa fa-github fa-lg"></i></a>
+              <a target="_new" href="https://www.cs.utah.edu/"><i class="fa fa-question fa-lg"></i></a>
+              <a target="_new" href="mailto:jonathan.soma@gmail.com"><i class="fa fa-youtube-play fa-lg"></i></a>
+            </div>
+           </form>
+          </div>
+        </div>
       </div>
-      <div id="clear-selection"
-      class="esri-widget esri-widget--button esri-widget esri-interactive"
-      title="Clear selection">
-      <span class="esri-icon-erase"></span>
-    </div>
-    </div>
-    <div class="column right">
-      <svg id="chart1"></svg>
-      <div class="'toolbox"> 
-        <span>
-          <label>Year</label>
-          <select id="Year">
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option selected value="2022">2022</option>
-          </select>
-        </span>
-        <span>
-          <label>Bus Type</label>
-          <select id="BusType">
-            <option value="Fixed Route Bus - Express">Fixed Route Bus - Express</option>
-            <option value="Fixed Route Bus - Regular">Fixed Route Bus - Regular</option>
-            <option selected value="Fixed Route Bus - Ski">Fixed Route Bus - Ski</option>
-            <option value="Route Deviation">Route Deviation</option>
-            <option value="Fixed Route Bus - UTA Rapid">Fixed Route Bus - UTA Rapid</option>
-            <option value="Commuter Rail">Commuter Rail</option>
-            <option value="Light Rail">Light Rail</option>
-            <option value="Streetcar">Streetcar</option>
-          </select>
-        </span>
-      </div>
-      <svg id="chart2">
-        <g id="x-axis"></g>
-        <g id="y-axis"></g>
-        <g id="bars"></g>
-        <g id="overlay"><line></line></g>
-      </svg>
-      <!-- <select id="metric1">
-        <option value="weekday">Week Days</option>
-        <option value="weekend">Weekends</option>
-        <option value="weekday">Week Days</option>
-        <option value="weekend">Weekends</option>
-        <option value="weekday">Week Days</option>
-        <option value="weekend">Weekends</option>
-      </select> -->
-      <!-- this is for Xiaoya's type of -->
-      <span>
-        <label>Day Types</label>
-        <select id="metric2">
-          <option value="all">All Days</option>
-          <option value="weekday">Week Days</option>
-          <option value="weekend">Weekends</option>
-        </select>
-      </span>
-      <svg id="chart3">
-        <g id="x-axis"></g>
-        <g id="y-axis"></g>
-        <g id="circles"></g>
-      </svg>
     </div>
   </div>
+  <!-- <header> -->
+    <h1>UTA Transit Routes</h1>
+    <!-- <div>Authors: Milena Belianovich, Tark Patel, Xiaoya Tang</div> -->
+  <!-- </header> -->
+
+  <!-- <main> -->
+    <div class='row' id='content'>
+      <div class="column left">
+        <div id="map"></div>
+        <div id="select-by-rectangle"
+          class="esri-widget esri-widget--button esri-widget esri-interactive"
+          title="Select features by rectangle">
+          <span class="esri-icon-checkbox-unchecked"></span>
+        </div>
+        <div id="clear-selection"
+        class="esri-widget esri-widget--button esri-widget esri-interactive"
+        title="Clear selection">
+        <span class="esri-icon-erase"></span>
+      </div>
+      </div>
+      <div class="column right">
+        <div class="toolbox">
+          <span>
+            <label>Year</label>
+            <select id="Year">
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option selected value="2022">2022</option>
+            </select>
+          </span>
+        </div>
+        <!-- <svg id="chart1"></svg> -->
+        <div class="'toolbox"> 
+          <span>
+            <label>Bus Type</label>
+            <select id="BusType">
+              <option value="Fixed Route Bus - Express">Fixed Route Bus - Express</option>
+              <option value="Fixed Route Bus - Regular">Fixed Route Bus - Regular</option>
+              <option selected value="Fixed Route Bus - Ski">Fixed Route Bus - Ski</option>
+              <option value="Route Deviation">Route Deviation</option>
+              <option value="Fixed Route Bus - UTA Rapid">Fixed Route Bus - UTA Rapid</option>
+              <option value="Commuter Rail">Commuter Rail</option>
+              <option value="Light Rail">Light Rail</option>
+              <option value="Streetcar">Streetcar</option>
+            </select>
+          </span>
+        </div>
+        <svg id="chart2">
+          <g id="x-axis"></g>
+          <g id="y-axis"></g>
+          <g id="bars"></g>
+          <g id="overlay"><line></line></g>
+        </svg>
+        <div class="'toolbox"> 
+          <span>
+            <label>Day Types</label>
+            <select id="metric2">
+              <option value="all">All Days</option>
+              <option value="weekday">Week Days</option>
+              <option value="weekend">Weekends</option>
+            </select>
+          </span>
+        </div>
+        <svg id="chart3">
+          <g id="x-axis"></g>
+          <g id="y-axis"></g>
+          <g id="circles"></g>
+          <g id="colorScale"></g>
+        </svg>
+      </div>
+    </div>
+  <!-- </main> -->
+
+  <!-- <footer class="page-footer font-small blue-grey lighten-5 mt-4 footer">
+  </footer> -->
+
+  <!-- <footer class="bg-light text-center text-lg-start"> -->
+    <!-- Copyright -->
+    <!-- <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2022 Copyright:
+      <a class="text-dark" href="https://github.com/xiaoyatang/Final-Project-VIS-2022">Milena Belianovich, Tark Patel & Xiaoya Tang</a>
+    </div> -->
+    <!-- Copyright -->
+  <!-- </footer> -->
+
+  <footer>
+    <div class="footer">
+       <div class="container">
+         <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <p><strong>Good day :)</strong></p>
+            <p>Thank you for using out website. We appreciate your interest!</p>
+            <p>In order to learn more about the use of this website, we offer this <a href="http://tinyletter.com/jsoma">educational YouTube video </a>.</p>
+            <p>You can also visit the <a href="https://github.com/xiaoyatang/Final-Project-VIS-2022">repository with our initial code and data </a>, if you like.</p>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <p><strong>Sources</strong></p>
+        <ul class="social-media-list">
+          
+          <li>
+            <i class="fa fa-github fa-lg" aria-hidden="true"></i>
+            <a href="https://github.com/xiaoyatang/Final-Project-VIS-2022">GitHub Repository</a>
+          </li>
+
+          <li>
+            <i class="fa fa-youtube-play fa-lg" aria-hidden="true"></i>
+            <a href="mailto:soma@brooklynbrainery.com">YouTube Video</a>
+          </li>
+
+          <li>
+            <i class="fa fa-question fa-lg" aria-hidden="true"></i>
+            <a href="https://www.cs.utah.edu/">CIS Department of Univesity of Utah</a>
+          </li>
+          
+        </ul>
+          </div>
+        </div>
+       </div>
+    </div>
+    <div class="infinite-copyright-wrapper">
+      <div class="infinite-copyright-container infinite-container">
+        <div class="infinite-copyright-text infinite-item-pdlr">
+          <div class="copyright">
+          <strong>Copyright © 2022 Milena Belianovich, Tark Patel, Xiaoya Tang. All Rights Reserved.</strong>
+        </div></div>
+      </div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </footer>
 
   <script src="js/box.js"></script>
-  <script src="js/line.js"></script>
-  <script src="js/scatter.js"></script>
-  <script src="js/map.js"></script>
-  <script src="js/script.js"></script>
+    <script src="js/bar.js"></script>
+    <script src="js/scatter.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/script.js"></script>
 
 </body>
 </html>

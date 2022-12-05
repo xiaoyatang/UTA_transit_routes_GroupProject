@@ -11,6 +11,7 @@ class MapVis {
         "esri/layers/CSVLayer",
         "esri/layers/FeatureLayer",
         "esri/layers/GraphicsLayer",
+        "esri/layers/support/FeatureFilter",
         "esri/widgets/Sketch/SketchViewModel",
         "esri/Graphic",
         "esri/widgets/FeatureTable",
@@ -23,6 +24,7 @@ class MapVis {
         CSVLayer,
         FeatureLayer,
         GraphicsLayer,
+        FeatureFilter,
         SketchViewModel,
         Graphic,
         FeatureTable,
@@ -42,20 +44,20 @@ class MapVis {
           type: "simple",
           symbol: {
             type: "simple-line",
-            color: "#FF6464",
+            color: "#2CBCF0",
             width: 2}};
         let pointsRenderer = {
           type: "simple",
           symbol: {
             type: "simple-marker",
-            color: "#FFEF82",
+            color: "#77DD77",
             size: 5}};
 
         let routesLayer = new GeoJSONLayer({
           url: routesJson,
           popupTemplate: routeTemplate,
           renderer: lineRenderer});
-      
+
         let stopsLayer = new GeoJSONLayer({
           url: stopsJson,
           popupTemplate: pointsTemplate,
@@ -95,22 +97,31 @@ class MapVis {
           highlightOnRowSelectEnabled: false,
           container: document.getElementById("tableDiv")});
 
-
         routesFeatureTable.on("selection-change", (changes) => {
           // Removed items are take nout of the feature list
           changes.removed.forEach((item) => {
-            let data = appState.selectedRoutes.find((d) => { return d === item.objectId; });
-            if (data) appState.selectedRoutes.splice(appState.selectedRoutes.indexOf(data), 1);
+            let data = appState.selectedRoutesIds.find((d) => { return d === item.objectId; });
+            if (data) {
+              appState.selectedRoutesIds.splice(appState.selectedRoutesIds.indexOf(data), 1);
+              appState.selectedRoutesLineAbbrs.splice(appState.selectedRoutesLineAbbrs.indexOf(appState.lineAbbrs[data]), 1);
+            }
           });
 
           // Add changed items to feature list
           changes.added.forEach((item) => {
-            appState.selectedRoutes.push(item.objectId);});
+            appState.selectedRoutesLineAbbrs.push(appState.lineAbbrs[item.objectId]);
+            appState.selectedRoutesIds.push(item.objectId);});
 
         // Add visual changes for removed items
           routesLayerView.featureEffect = {
-            filter: { objectIds: appState.selectedRoutes},
+            filter: {objectIds: appState.selectedRoutesIds},
             excludedEffect: "blur(5px) grayscale(50%) opacity(30%)"};
+
+          let data = [];
+            for (let i = 0; i < 12; ++i)
+              data.push(globalApplicationState.monthlyBusData[i].filter(d => d.Year === appState.year && d.Mode === appState.busType
+                                                                       && (appState.dayType === 'all' ? true : appState.dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')))
+            appState.chart2.update(data)
         });
 
         stopsFeatureTable.on("selection-change", (changes) => {
