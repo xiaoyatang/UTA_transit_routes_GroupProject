@@ -127,18 +127,26 @@ class MapVis {
         stopsFeatureTable.on("selection-change", (changes) => {
           // Removed items are take nout of the feature list
           changes.removed.forEach((item) => {
-            let data = appState.selectedStops.find((d) => { return d === item.objectId; });
-            if (data) appState.selectedStops.splice(appState.selectedStops.indexOf(data), 1);
+            let data = appState.selectedStopsIds.find((d) => { return d === item.objectId; });
+            if (data) {
+              appState.selectedStopsIds.splice(appState.selectedStopsIds.indexOf(data), 1);
+              appState.selectedStopsAbbrs.splice(appState.selectedStopsAbbrs.indexOf(appState.stopAbbrs[data]), 1);
+            }
           });
 
           // Add visual changed items to feature list
           changes.added.forEach((item) => {
-            appState.selectedStops.push(item.objectId);});
+            appState.selectedStopsAbbrs.push(appState.stopAbbrs[item.objectId]);
+            appState.selectedStopsIds.push(item.objectId);});
 
         // Add changes for removed items
           stopsLayerView.featureEffect = {
-            filter: { objectIds: appState.selectedStops},
+            filter: { objectIds: appState.selectedStopsIds},
             excludedEffect: "blur(5px) grayscale(50%) opacity(30%)"};
+          let data = globalApplicationState.stopBoardData.filter(d => d.Year === globalApplicationState.year
+                                                                 && (globalApplicationState.dayType === 'all' ? true : globalApplicationState.dayType === 'weekday' ?
+                                                                     d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN'))
+          appState.chart3.update(data)
         });
 
         let gl = new GraphicsLayer();

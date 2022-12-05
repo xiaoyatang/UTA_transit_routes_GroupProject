@@ -3,7 +3,6 @@ class Scatter {
 
     constructor(globalApplicationState){
         this.globalApplicationState = globalApplicationState;
-        this.data = globalApplicationState.stopBoardData;
         this.height = 420;
         this.width = 420;
         this.space = 20;
@@ -19,23 +18,19 @@ class Scatter {
             .domain(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'])
             .range(['beige', 'orange', 'yellow', 'green', 'aqua', 'blue', 'darkblue', 'violet', 'purple', 'pink', 'magenta', 'black']);
 
-        let year=d3.select('#Year').property('value');
-        let dayType = d3.select('#metric2').property('value');
+            this.data = globalApplicationState.stopBoardData.filter(d => d.Year === globalApplicationState.year
+                              && (globalApplicationState.dayType === 'all' ? true : globalApplicationState.dayType === 'weekday' ?
+                                  d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN'));
+        this.update();
         this.colorScale();
-        this.setText();
-        this.update(year, dayType);
     }
 
-    updateScales() {
-        let year = d3.select('#Year').node().value;
-        let dayType = d3.select('#metric2').node().value;
-        let filteredData = this.data.filter(d => d.Year === year)
-            .filter(d => dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')
+    updateScales(data) {
         let boardMax = 0;
         let alightMax = 0;
-        for (let i = 0; i < filteredData.length; ++i) {
-            boardMax = Math.max(boardMax, filteredData[i].AvgBoard)
-            alightMax = Math.max(alightMax, filteredData[i].AvgAlight)
+        for (let i = 0; i < data.length; ++i) {
+            boardMax = Math.max(boardMax, data[i].AvgBoard)
+            alightMax = Math.max(alightMax, data[i].AvgAlight)
         }
 
         this.xAxis = d3.scaleLinear()
@@ -59,16 +54,12 @@ class Scatter {
             .call(d3.axisLeft(this.yAxis));
     }
 
-    setText() {
-        let year = d3.select('#Year').node().value;
-        let dayType = d3.select('#metric2').node().value;
-        let filteredData = this.data.filter(d => d.Year === year)
-            .filter(d => dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')
+    setText(data) {
         let boardMax = 0;
         let alightMax = 0;
-        for (let i = 0; i < filteredData.length; ++i) {
-            boardMax = Math.max(boardMax, filteredData[i].AvgBoard)
-            alightMax = Math.max(alightMax, filteredData[i].AvgAlight)
+        for (let i = 0; i < data.length; ++i) {
+            boardMax = Math.max(boardMax, data[i].AvgBoard)
+            alightMax = Math.max(alightMax, data[i].AvgAlight)
         }
 
         this.xAxis = d3.scaleLinear()
@@ -101,12 +92,14 @@ class Scatter {
             .attr("font-size","15px");   
     }
 
-    update(year, dayType) {
-        this.updateScales();
-        let filteredData = this.data.filter(d => d.Year === year)
-            .filter(d => dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')
-       this.svg
-            .select("#circles")
+    update(data=this.data) {
+        this.data = data; // update this.data only if parameter was passed
+        let filteredData = (globalApplicationState.selectedStopsAbbrs.length > 1) ?
+            this.data.filter(d => globalApplicationState.selectedStopsAbbrs.find(el => el === d.StopAbbr)) : this.data;
+
+        this.updateScales(filteredData);
+        this.setText(filteredData);
+        this.svg.select("#circles")
             .attr("transform", `translate(this.margin.top, 120)`)
             .selectAll("circle")
             .data(filteredData)
