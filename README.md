@@ -32,9 +32,9 @@ Main point of this visualization is letting the user find interesting data corre
 
  ~ Libraries used are d3 and arcgis, linked in 'index.html'.   
 
- ~ Website of the project can be found (here)[https://xiaoyatang.github.io/UTA_transit_routes_GroupProject/].
+ ~ Website of the project:   https://xiaoyatang.github.io/UTA_transit_routes_GroupProject/
 
- ~ Youtube link for the explanation video is (here)[].
+ ~ Youtube link for the explanation video:  
 
  ~ Features in detail:
 
@@ -52,6 +52,44 @@ Main point of this visualization is letting the user find interesting data corre
 
     - Graphs:
 
-      1. While the brush on the map is selecting routes, those will be mirrored on the graphs provided. However, additional filtering is alloweed through drop-down error choices.
+      1. While the brush on the map is selecting routes, those will be mirrored on the graphs provided. However, additional filtering is allowed through drop-down choices.
 
       2. When the brush is removed, the selection for the graph data goes to its initial (starting) selection.
+~ Interesting information:  
+
+      1. One interesting observation is that by choosing the “Fixed Bus Route - Ski”, we can see the usage of it reaches the top in December of every 
+      
+      year. Salt Lake City contains famous ski resorts, so the ski lines are frequently used during the winter holiday season, especially in December,
+      
+      January, February and  sometimes even March.
+      
+      2. You can also see the usage of “Fixed Route Bus - Regular”. There is no obvious difference in its usage over months, partly due to the fact that
+      
+      it is one of the busiest lines in the city.
+
+      3. The most frequently used type is  “Fixed Route Bus - Regular”. 
+      
+      
+      4.Most stops have low average onboardings and alightings in December, while several stops are frequently used at the same time. We can estimate
+      
+      these stops are near the ski places in Salt Lake City.
+      
+      5. Stops are most frequently used in September, November and August. The following are July and January. That may be connected to special events in
+      
+      the city like the school events.
+      
+      6. The usage of stops in 2021 is obviously lower than 2020 and 2022. It may be influenced by the spread of the Coronavirus.
+      
+~ Conclusion and potential extensions for our work:
+
+      We hope people can find a lot of fun on our website.
+      
+      We can advance the map with special positions to see the connections between stops and positions. We can also work on implementing the division of
+      
+      the map into neighborhoods to further analyze the possible connections between most populated neighborhoods and route’s use and availability.
+      
+      we are open to discuss our work with the UTA or others.
+      
+      
+
+
