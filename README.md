@@ -32,9 +32,9 @@ Main point of this visualization is letting the user find interesting data corre
 
  ~ Libraries used are d3 and arcgis, linked in 'index.html'.   
 
- ~ Website of the project:   https://xiaoyatang.github.io/UTA_transit_routes_GroupProject/
+ ~ Website of the project:  (https://xiaoyatang.github.io/UTA_transit_routes_GroupProject/)[https://xiaoyatang.github.io/UTA_transit_routes_GroupProject/]
 
- ~ Youtube link for the explanation video:  
+ ~ Youtube link for the explanation video:  ()[]
 
  ~ Features in detail:
 
