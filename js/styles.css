@@ -76,7 +76,7 @@ footer .fa {
 
 #map {
     height: 90%;
-    width: 90%;
+    width: 100%;
 }
 
 .column {
@@ -88,8 +88,9 @@ footer .fa {
 } */
 
 .column-right {
-    float: right;
-    padding-right: 52px;
+    float: left;
+    position: relative;
+    left: 5%;
 }
 
 .left {
