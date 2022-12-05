@@ -34,7 +34,7 @@ Main point of this visualization is letting the user find interesting data corre
 
  ~ Website of the project:  [https://xiaoyatang.github.io/UTA_transit_routes_GroupProject/](https://xiaoyatang.github.io/UTA_transit_routes_GroupProject/).
 
- ~ Youtube link for the explanation video:  []().
+ ~ Youtube link for the explanation video:  [https://www.youtube.com/watch?v=e1XI79XWGo8](https://www.youtube.com/watch?v=e1XI79XWGo8).
 
  ~ Features in detail:
 
@@ -58,7 +58,7 @@ Main point of this visualization is letting the user find interesting data corre
 ~ Interesting information:  
 
       1. One interesting observation is that by choosing the “Fixed Bus Route - Ski”, we can see the usage of it reaches the top in December of every 
-      
+
       year. Salt Lake City contains famous ski resorts, so the ski lines are frequently used during the winter holiday season, especially in December,
       
       January, February and  sometimes even March.
