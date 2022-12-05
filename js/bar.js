@@ -1,33 +1,24 @@
 class Bar {
     constructor(globalApplicationState){
         this.firstRun = true;
-        this.data = globalApplicationState.monthlyBusData;
-
         this.CHART_WIDTH = 400;
         this.CHART_HEIGHT = 400;
         this.MARGIN = { left: 60, bottom: 20, top: 20, right: 20 };
         // this.drawLegend();
 
-        let year = d3.select('#Year').property('value');
-        let busType = d3.select('#BusType').property('value');
-        let dayType = d3.select('#metric2').property('value');
-        let filteredData = []
-        let sums = [];
-        for (let i = 0; i < 12; ++i) {
-            filteredData.push(this.data[i].filter(d => d.Year === year && d.Mode === busType
-                              && (dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')))
-            sums.push(d3.sum(d3.map(filteredData[i], d => d.AvgBoardings)));
-        }
-        console.log(sums)
-        this.setText(sums);
-        this.update(sums);
+        this.data = []
+        for (let i = 0; i < 12; ++i)
+            this.data.push(globalApplicationState.monthlyBusData[i].filter(d => d.Year === globalApplicationState.year && d.Mode === globalApplicationState.busType
+                              && (globalApplicationState.dayType === 'all' ? true : globalApplicationState.dayType === 'weekday' ?
+                                  d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')))
+        this.update();
 
         // this.myColor = d3.scaleOrdinal()
         //     .domain(this.uniqueCateg)
         //     .range(["lightseagreen", "navy", "orange", "pink", "darkgreen",  "slateblue","steelblue",'red']);
     }
 
-    setText(data){
+    setText(sums){
         let labelData = ['Jan', 'Feb', 'Mar', "Apr", 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         let svg = d3.select('#chart2')
             .attr('width',this.CHART_WIDTH)
@@ -35,7 +26,7 @@ class Bar {
 
         this.yScale = d3.scaleLinear()
             // .domain([0, d3.max(sum, c => c)])
-            .domain([0, d3.max(data, c => c)])
+            .domain([0, d3.max(sums, c => c)])
             .range([this.CHART_HEIGHT - this.MARGIN.bottom - this.MARGIN.top, 15]);
         this.xScale = d3.scaleBand()
             .domain(labelData)
@@ -64,13 +55,13 @@ class Bar {
             .attr("font-size","15px");
     }
 
-    updateBar(data){
+    updateBar(sums){
         let labelData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         let svg = d3.select('#chart2')
             .attr('width', this.CHART_WIDTH)
             .attr('height', this.CHART_HEIGHT);
         this.yScale = d3.scaleLinear()
-            .domain([0, d3.max(data)])
+            .domain([0, d3.max(sums)])
             .range([this.CHART_HEIGHT - this.MARGIN.bottom - this.MARGIN.top,15])
         this.xScale = d3.scaleBand()
             .domain(labelData)
@@ -105,12 +96,27 @@ class Bar {
         //     .attr("font-size","15px");           
     }
 
-    update(data) {
-        this.updateBar(data)
+    update(data = this.data) {
+        this.data = data; // update this.data only if parameter was passed
+        let filteredData = []; // filter by map brushing
+        if (globalApplicationState.selectedRoutesLineAbbrs.length > 1)
+            for (let i = 0; i < 12; ++i)
+                filteredData.push(this.data[i].filter(d =>
+                    globalApplicationState.selectedRoutesLineAbbrs.find(el => el === d.LineAbbr)))
+        else
+            filteredData = this.data
+
+        let sums = []
+        for (let i = 0; i < 12; ++i)
+            sums.push(d3.sum(d3.map(filteredData[i], d => d.AvgBoardings)));
+
+        this.updateBar(sums)
+        this.setText(sums)
+
         let barWidth = this.xScale.bandwidth() * 1.32 + 2;
         let rects = d3.select('#chart2 #bars')
             .selectAll('rect')
-            .data(data)
+            .data(sums)
             .join('rect')
             .attr('x', function(d,i) { return barWidth * i + 65; })
             .attr('width', 1.32 * this.xScale.bandwidth())

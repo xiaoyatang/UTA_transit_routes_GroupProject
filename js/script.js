@@ -10,13 +10,12 @@ async function loadData () {
   }
 
 function getFilteredMonthly(year, busType, dayType) {
-    let sums = [];
-    for (let i = 0; i < 12; ++i) {
-        let a = globalApplicationState.monthlyBusData[i].filter(d => d.Year === year && d.Mode === busType
-                                                                && (dayType === 'all' ? true : dayType === 'weekday' ? d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN'))
-        sums.push(d3.sum(d3.map(a, d => d.AvgBoardings)));
-    }
-    return sums;
+    let data = [];
+    for (let i = 0; i < 12; ++i)
+        data.push(globalApplicationState.monthlyBusData[i].filter(d => d.Year === globalApplicationState.year && d.Mode === globalApplicationState.busType
+                                                                  && (globalApplicationState.dayType === 'all' ? true : globalApplicationState.dayType === 'weekday' ?
+                                                                      d.ServiceType === 'WKD' : d.ServiceType === 'SAT' || d.ServiceType === 'SUN')))
+    return data;
 }
   
   // ******* STATE MANAGEMENT *******
@@ -30,14 +29,16 @@ function getFilteredMonthly(year, busType, dayType) {
     stopBoardData : null,
     monthlyStopData: null, 
     monthlyBusData: null,
-    selectedRoutes : [],
+    selectedRoutesLineAbbrs : [],
+    selectedRoutesIds : [],
     selectedStops : [],
-    // stopSum: [],
-    // routeSum: [],
     map: null,
     chart1: null,
     chart2: null,
     chart3: null,
+    year: null,
+    busType: null,
+    dayType: null
   };
   
   
@@ -56,6 +57,7 @@ function getFilteredMonthly(year, busType, dayType) {
     globalApplicationState.stopsData = loadedData.stopsData;
     globalApplicationState.busBoardData = loadedData.busBoardData;
     globalApplicationState.stopBoardData = loadedData.stopBoardData;
+    globalApplicationState.lineAbbrs = loadedData.routesData.features.map(d => d.properties.LineAbbr);
 
 
     // globalApplicationState.selectedMonths = loadedData.
@@ -77,6 +79,10 @@ function getFilteredMonthly(year, busType, dayType) {
            loadedData.stopBoardData.filter(d => d.Month==="September"), loadedData.stopBoardData.filter(d => d.Month==="October"),
            loadedData.stopBoardData.filter(d => d.Month==="November"), loadedData.stopBoardData.filter(d => d.Month==="December")];
 
+    globalApplicationState.year = d3.select('#Year').node().value;
+    globalApplicationState.busType = d3.select('#BusType').node().value;
+    globalApplicationState.dayType = d3.select('#metric2').node().value;
+
     // Creates the view objects with the global state passed in
     const map = new MapVis(globalApplicationState, "data/map.json", "data/stops.json");
     const chart1 = new Box(globalApplicationState);
@@ -89,27 +95,27 @@ function getFilteredMonthly(year, busType, dayType) {
     globalApplicationState.chart3 = chart3;
 
       d3.select('#BusType').on('change', function() {
-          let year = d3.select('#Year').node().value;
-          let busType = d3.select('#BusType').node().value;
-          let dayType = d3.select('#metric2').node().value;
-          let sums = getFilteredMonthly(year, busType, dayType);
-          globalApplicationState.chart2.update(sums);
+          globalApplicationState.year = d3.select('#Year').node().value;
+          globalApplicationState.busType = d3.select('#BusType').node().value;
+          globalApplicationState.dayType = d3.select('#metric2').node().value;
+          let data = getFilteredMonthly();
+          globalApplicationState.chart2.update(data);
       });
       d3.select('#metric2').on('change', function() {
-          let year = d3.select('#Year').node().value;
-          let busType = d3.select('#BusType').node().value;
-          let dayType = d3.select('#metric2').node().value;
-          let sums = getFilteredMonthly(year, busType, dayType);
-          globalApplicationState.chart2.update(sums);
-          globalApplicationState.chart3.update(year, dayType);
+          globalApplicationState.year = d3.select('#Year').node().value;
+          globalApplicationState.busType = d3.select('#BusType').node().value;
+          globalApplicationState.dayType = d3.select('#metric2').node().value;
+          let data = getFilteredMonthly();
+          globalApplicationState.chart2.update(data);
+          globalApplicationState.chart3.update(globalApplicationState.year, globalApplicationState.dayType);
       });
       d3.select('#Year').on('change', function() {
-          let year = d3.select('#Year').node().value;
-          let busType = d3.select('#BusType').node().value;
-          let dayType = d3.select('#metric2').node().value;
-          let sums = getFilteredMonthly(year, busType, dayType);
-          globalApplicationState.chart2.update(sums);
-          globalApplicationState.chart3.update(year, dayType);
+          globalApplicationState.year = d3.select('#Year').node().value;
+          globalApplicationState.busType = d3.select('#BusType').node().value;
+          globalApplicationState.dayType = d3.select('#metric2').node().value;
+          let data = getFilteredMonthly();
+          globalApplicationState.chart2.update(data);
+          globalApplicationState.chart3.update(globalApplicationState.year, globalApplicationState.dayType);
       });
     // Allow clear button to clear selection
     // d3.select('#clear-button').on('click', () => {
