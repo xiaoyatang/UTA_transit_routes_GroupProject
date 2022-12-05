@@ -16,7 +16,7 @@ class Scatter {
         this.colors = d3.scaleOrdinal()
             //.domain(this.data.map( (d,i) => d.Month[i] ))
             .domain(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'])
-            .range(['beige', 'orange', 'yellow', 'green', 'aqua', 'blue', 'darkblue', 'violet', 'purple', 'pink', 'magenta', 'black']);
+            .range(['beige', '#FFAC3B', 'yellow', '#00B408', '#00C2F9', '#C7007C', '#86FFDE', '#86FFDE', '#E20134', 'violet', '#A700FC', 'black']);
 
             this.data = globalApplicationState.stopBoardData.filter(d => d.Year === globalApplicationState.year
                               && (globalApplicationState.dayType === 'all' ? true : globalApplicationState.dayType === 'weekday' ?
@@ -130,7 +130,7 @@ class Scatter {
 
     colorScale(){
         let Labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        let colorDist = ['beige', 'orange', 'yellow', 'green', 'aqua', 'blue', 'darkblue', 'violet', 'purple', 'pink', 'magenta', 'black'];
+        let colorDist = ['beige', '#FFAC3B', 'yellow', '#00B408', '#00C2F9', '#C7007C', '#86FFDE', 'violet', '#E20134', '#00489E', '#A700FC', 'black'];
 
         let square = this.svg
             .select('#colorScale')
