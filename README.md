@@ -27,18 +27,30 @@ This project will visualize the traffic routes and other relative information in
   upload feedback exercise(feedback to their feedback to us).
   
  ## Final project submission: 
- ~ Code: Contained in 'js' folder along with 'index.html'(html code) and 'style.css' (for styling).   
+ ~ Code: Contained in 'js' folder along with 'index.html'(html code) and 'style.css' (for styling).  
+
  ~ Libraries used are d3 and arcgis, linked in 'index.html'.   
+
  ~ Website of the project:    
+
  ~ Youtube link for the explanation video:  
+
  ~ Features in detail:
+
     - Map:
+
       1. Brushing can be achieved by clicking the brushing button on the map, then clicking on the map itself and dragging the cursor.
+
       2. Multiple rectangles might be chosen at ones by using the brushing button on the map again.
+
       3. Clicking on the chosen rectangle and pressing the 'delete' button clears the rectangle shape, but let's the selection stay as is.
+
       4. In order to fully clear the selection, the clearing button (eraser) should be pressed.
+
       5. Clicking the cursor at any point on the map allows the user to see the closest routes and stops to the chosen spot on the map. THe tooltip shows arrows for going between possible routes/stops of interest, while the selection in the background changes accordingly.
 
     - Graphs:
+    
       1. While the brush on the map is selecting routes, those will be mirrored on the graphs provided. However, additional filtering is alloweed through drop-down error choices.
+
       2. When the brush is removed, the selection for the graph data goes to its initial (starting) selection.
