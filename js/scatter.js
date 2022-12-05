@@ -141,7 +141,7 @@ class Scatter {
 
         let square = this.svg
             .select('#colorScale')
-            .attr('transform',`translate(10, ${this.width - this.margin.top - 18})`)
+            .attr('transform',`translate(27, ${this.width - this.margin.top - 18})`)
 
         let diff1 = 73;
         // let diff2 = 85;
@@ -315,7 +315,7 @@ class Scatter {
         square
             .append('g')
             .append('rect')
-            .attr('transform',`translate(150, 20)`)
+            .attr('transform',`translate(156, 20)`)
             .attr('width', 8)
             .attr('height', 8)
             .attr('fill', colorDist[9])
@@ -325,7 +325,7 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", 20 + diff1*2)
+            .attr("x", 25 + diff1*2)
             .attr("y", 30)
             .text(Labels[9])
             .attr("font-size","12.5px");
@@ -333,7 +333,7 @@ class Scatter {
         square
             .append('g')
             .append('rect')
-            .attr('transform',`translate(215, 20)`)
+            .attr('transform',`translate(225, 20)`)
             .attr('width', 8)
             .attr('height', 8)
             .attr('fill', colorDist[10])
@@ -343,7 +343,7 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", diff1*3 + 10)
+            .attr("x", diff1*3 + 20)
             .attr("y", 30)
             .text(Labels[10])
             .attr("font-size","12.5px");
@@ -351,7 +351,7 @@ class Scatter {
         square
             .append('g')
             .append('rect')
-            .attr('transform',`translate(273, 20)`)
+            .attr('transform',`translate(306, 20)`)
             .attr('width', 8)
             .attr('height', 8)
             .attr('fill', colorDist[11])
@@ -361,7 +361,7 @@ class Scatter {
 
         square.select('g')
             .append("text")
-            .attr("x", diff1*4 - 3)
+            .attr("x", diff1*4 + 30)
             .attr("y", 30)
             .text(Labels[11])
             .attr("font-size","12.5px");

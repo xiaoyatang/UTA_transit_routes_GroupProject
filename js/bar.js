@@ -32,7 +32,7 @@ class Bar {
             .domain(labelData)
             .range([this.MARGIN.left, this.CHART_WIDTH - this.MARGIN.right])
             .padding(0.3);
-        
+
         svg.select('#x-axis')
             .append('text')
             .text('Date')
@@ -93,7 +93,7 @@ class Bar {
         //     .attr('y', -45)
         //     .attr('transform', 'rotate(-90)')
         //     .attr("stroke","black")
-        //     .attr("font-size","15px");           
+        //     .attr("font-size","15px");
     }
 
     update(data = this.data) {
