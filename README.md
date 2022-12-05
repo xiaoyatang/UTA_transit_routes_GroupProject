@@ -26,3 +26,9 @@ This project will visualize the traffic routes and other relative information in
     
   Review with the staff.\
   upload feedback exercise(feedback to their feedback to us).
+  
+ ## Final project submission: 
+ Code: Contains in 'final.html' and 'js' files, stylling by 'style.css'.   
+ Libraries used are d3 and arcgis, linked in 'final.html'.   
+ Website to our project:    
+ Our screencast video is post on Youtube:  
