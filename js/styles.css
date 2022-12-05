@@ -83,6 +83,15 @@ footer .fa {
     float: left;
 }
 
+/* .column-left {
+    float: left;
+} */
+
+.column-right {
+    float: right;
+    padding-right: 52px;
+}
+
 .left {
     width: 65%;
 }
